@@ -53,9 +53,251 @@
             </audio>
           </div>
 
-          <button class="registration-button" type="button">
+          <button
+            class="registration-button"
+            type="button"
+            aria-expanded="false"
+            aria-controls="questionnaire"
+          >
             Зарегистрируй карту
           </button>
+
+          <section class="questionnaire" id="questionnaire" hidden>
+            <header class="questionnaire__header">
+              <h2 class="questionnaire__title">Анкета</h2>
+              <p class="questionnaire__subtitle">
+                Заполните данные для активации карты и обратной связи
+              </p>
+            </header>
+
+            <form class="questionnaire__form" id="questionnaire-form" novalidate>
+              <div class="form-grid">
+                <label class="form-field">
+                  <span class="form-field__label">1. Имя</span>
+                  <input
+                    type="text"
+                    name="firstName"
+                    placeholder="Введите имя"
+                    autocomplete="given-name"
+                    minlength="2"
+                    maxlength="60"
+                    required
+                  >
+                  <span class="form-field__error"></span>
+                </label>
+
+                <label class="form-field">
+                  <span class="form-field__label">2. Фамилия</span>
+                  <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Введите фамилию"
+                    autocomplete="family-name"
+                    minlength="2"
+                    maxlength="60"
+                    required
+                  >
+                  <span class="form-field__error"></span>
+                </label>
+
+                <label class="form-field form-field--wide">
+                  <span class="form-field__label">3. Email</span>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="example@mail.com"
+                    autocomplete="email"
+                    maxlength="120"
+                    required
+                  >
+                  <span class="form-field__error"></span>
+                </label>
+
+                <label class="form-field">
+                  <span class="form-field__label">4. Дата рождения</span>
+                  <input
+                    type="date"
+                    name="birthDate"
+                    autocomplete="bday"
+                    required
+                  >
+                  <span class="form-field__error"></span>
+                </label>
+
+                <label class="form-field">
+                  <span class="form-field__label">5. Семья</span>
+                  <select name="familySize" required>
+                    <option value="">Выберите вариант</option>
+                    <option value="1–2 человека">1–2 человека</option>
+                    <option value="3–4 человека">3–4 человека</option>
+                    <option value="5 и более">5 и более</option>
+                  </select>
+                  <span class="form-field__error"></span>
+                </label>
+
+                <label class="form-field">
+                  <span class="form-field__label">6. Откуда приехали в Польшу</span>
+                  <select name="originCountry" required>
+                    <option value="">Выберите страну</option>
+                    <option value="Украина">Украина</option>
+                    <option value="Беларусь">Беларусь</option>
+                    <option value="Молдова">Молдова</option>
+                    <option value="Грузия">Грузия</option>
+                    <option value="Армения">Армения</option>
+                    <option value="Казахстан">Казахстан</option>
+                    <option value="Другая страна">Другая страна</option>
+                  </select>
+                  <span class="form-field__error"></span>
+                </label>
+
+                <label class="form-field">
+                  <span class="form-field__label">7. Область</span>
+                  <select name="voivodeship" required>
+                    <option value="">Выберите область</option>
+                    <option value="Нижнесилезское">Нижнесилезское</option>
+                    <option value="Куявско-Поморское">Куявско-Поморское</option>
+                    <option value="Люблинское">Люблинское</option>
+                    <option value="Любушское">Любушское</option>
+                    <option value="Лодзинское">Лодзинское</option>
+                    <option value="Малопольское">Малопольское</option>
+                    <option value="Мазовецкое">Мазовецкое</option>
+                    <option value="Опольское">Опольское</option>
+                    <option value="Подкарпатское">Подкарпатское</option>
+                    <option value="Подляское">Подляское</option>
+                    <option value="Поморское">Поморское</option>
+                    <option value="Силезское">Силезское</option>
+                    <option value="Свентокшиское">Свентокшиское</option>
+                    <option value="Варминско-Мазурское">Варминско-Мазурское</option>
+                    <option value="Великопольское">Великопольское</option>
+                    <option value="Западно-Поморское">Западно-Поморское</option>
+                  </select>
+                  <span class="form-field__error"></span>
+                </label>
+
+                <fieldset class="form-field form-field--locality">
+                  <legend class="form-field__label">8. Город / село</legend>
+                  <div class="segmented-control">
+                    <label>
+                      <input type="radio" name="localityType" value="Город" checked>
+                      <span>Город</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="localityType" value="Село">
+                      <span>Село</span>
+                    </label>
+                  </div>
+                  <input
+                    type="text"
+                    name="locality"
+                    placeholder="Введите город или село"
+                    autocomplete="address-level2"
+                    minlength="2"
+                    maxlength="100"
+                    required
+                  >
+                  <span class="form-field__error"></span>
+                </fieldset>
+
+                <label class="form-field">
+                  <span class="form-field__label">9. Где проживаете</span>
+                  <select name="residenceType" required>
+                    <option value="">Выберите вариант</option>
+                    <option value="Собственное жильё">Собственное жильё</option>
+                    <option value="Арендованное жильё">Арендованное жильё</option>
+                    <option value="У родственников / знакомых">У родственников / знакомых</option>
+                    <option value="Общежитие / хостел">Общежитие / хостел</option>
+                    <option value="Другое">Другое</option>
+                  </select>
+                  <span class="form-field__error"></span>
+                </label>
+
+                <label class="form-field">
+                  <span class="form-field__label">10. Где работаете</span>
+                  <select name="employment" required>
+                    <option value="">Выберите вариант</option>
+                    <option value="Работаю официально">Работаю официально</option>
+                    <option value="Работаю неофициально">Работаю неофициально</option>
+                    <option value="Собственный бизнес">Собственный бизнес</option>
+                    <option value="Учусь">Учусь</option>
+                    <option value="Временно не работаю">Временно не работаю</option>
+                  </select>
+                  <span class="form-field__error"></span>
+                </label>
+
+                <label class="form-field">
+                  <span class="form-field__label">11. Номер телефона</span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="+48 123 456 789"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    pattern="^\+?[0-9\s()\-]{9,20}$"
+                    title="Введите корректный номер телефона"
+                    required
+                  >
+                  <span class="form-field__error"></span>
+                </label>
+
+                <label class="form-field">
+                  <span class="form-field__label">12. Номер карты</span>
+                  <input
+                    type="text"
+                    name="cardNumber"
+                    placeholder="Введите номер карты"
+                    inputmode="numeric"
+                    pattern="^[0-9]{6,24}$"
+                    minlength="6"
+                    maxlength="24"
+                    title="Введите от 6 до 24 цифр без пробелов"
+                    required
+                  >
+                  <span class="form-field__hint">штрих-код на обороте карты</span>
+                  <span class="form-field__error"></span>
+                </label>
+              </div>
+
+              <div class="consent-list">
+                <label class="consent">
+                  <input type="checkbox" name="personalDataConsent" required>
+                  <span class="consent__box" aria-hidden="true"></span>
+                  <span><strong>*</strong> Согласие на обработку персональных данных</span>
+                </label>
+                <label class="consent">
+                  <input type="checkbox" name="notificationsConsent" required>
+                  <span class="consent__box" aria-hidden="true"></span>
+                  <span>
+                    <strong>*</strong> Согласие на получение уведомлений от компании
+                    PRYWOZ LODZ Sp. z o.o.
+                  </span>
+                </label>
+              </div>
+
+              <button class="questionnaire__submit" type="submit">
+                <span>Отправить анкету</span>
+              </button>
+
+              <p class="questionnaire__status" role="status" aria-live="polite"></p>
+
+              <p class="questionnaire__note">
+                <span class="questionnaire__info" aria-hidden="true">i</span>
+                <span>
+                  После отправки мы свяжемся с вами.<br>
+                  Карта будет активна в течение 48 часов.
+                </span>
+              </p>
+            </form>
+          </section>
+
+          <section class="success-card" id="success-card" hidden>
+            <div class="success-card__check" aria-hidden="true"></div>
+            <h2 class="success-card__title">Спасибо!</h2>
+            <p class="success-card__message">
+              Спасибо, в течение 48 часов<br>
+              карта будет активна
+            </p>
+            <p class="success-card__status">Анкета успешно отправлена</p>
+          </section>
         </section>
       </div>
     </main>
