@@ -22,6 +22,7 @@ const successCard = document.querySelector("#success-card");
 const submitButton = questionnaireForm.querySelector(".questionnaire__submit");
 const formStatus = questionnaireForm.querySelector(".questionnaire__status");
 const birthDateInput = questionnaireForm.elements.birthDate;
+const phoneInput = questionnaireForm.elements.phone;
 
 birthDateInput.max = new Date().toISOString().split("T")[0];
 
@@ -69,6 +70,10 @@ registrationButton.addEventListener("click", () => {
 });
 
 questionnaireForm.addEventListener("input", (event) => {
+  if (event.target === phoneInput) {
+    event.target.value = sanitizePhone(event.target.value);
+  }
+
   if (event.target.matches("input, select")) {
     validateField(event.target);
   }
@@ -318,6 +323,13 @@ function isPreviewEnvironment() {
     window.location.hostname === "127.0.0.1" ||
     window.location.hostname.endsWith(".github.io")
   );
+}
+
+function sanitizePhone(value) {
+  const hasLeadingPlus = value.trimStart().startsWith("+");
+  const digits = value.replace(/\D/g, "").slice(0, 15);
+
+  return `${hasLeadingPlus ? "+" : ""}${digits}`;
 }
 
 function loadImage(src) {
