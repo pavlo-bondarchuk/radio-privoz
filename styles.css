@@ -99,6 +99,7 @@ input {
 .hero__eyebrow {
   margin: 0;
   color: var(--neon-pink);
+  font-family: "Oswald", sans-serif;
   font-size: clamp(25px, 2.45vw, 40px);
   font-weight: 400;
   letter-spacing: clamp(5px, 0.65vw, 10px);
