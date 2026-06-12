@@ -79,6 +79,18 @@ questionnaireForm.addEventListener("input", (event) => {
   }
 });
 
+phoneInput.addEventListener("focus", () => {
+  if (!phoneInput.value) {
+    phoneInput.value = "+";
+  }
+});
+
+phoneInput.addEventListener("blur", () => {
+  if (phoneInput.value === "+") {
+    phoneInput.value = "";
+  }
+});
+
 questionnaireForm.addEventListener("change", (event) => {
   if (event.target.matches("input, select")) {
     validateField(event.target);
@@ -326,10 +338,9 @@ function isPreviewEnvironment() {
 }
 
 function sanitizePhone(value) {
-  const hasLeadingPlus = value.trimStart().startsWith("+");
   const digits = value.replace(/\D/g, "").slice(0, 15);
 
-  return `${hasLeadingPlus ? "+" : ""}${digits}`;
+  return `+${digits}`;
 }
 
 function loadImage(src) {
