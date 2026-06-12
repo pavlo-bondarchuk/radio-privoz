@@ -84,6 +84,10 @@ select {
   text-align: center;
 }
 
+.hero--expanded {
+  justify-content: flex-start;
+}
+
 .hero__logo {
   display: block;
   width: clamp(310px, 38vw, 540px);

@@ -16,6 +16,7 @@ const player = new Plyr("#player", {
 
 const audio = document.querySelector("#player");
 const registrationButton = document.querySelector(".registration-button");
+const hero = document.querySelector(".hero");
 const questionnaire = document.querySelector("#questionnaire");
 const questionnaireForm = document.querySelector("#questionnaire-form");
 const successCard = document.querySelector("#success-card");
@@ -61,10 +62,10 @@ registrationButton.addEventListener("click", () => {
   }
 
   questionnaire.hidden = false;
+  hero.classList.add("hero--expanded");
   registrationButton.setAttribute("aria-expanded", "true");
 
   requestAnimationFrame(() => {
-    questionnaire.scrollIntoView({ behavior: "smooth", block: "start" });
     questionnaireForm.elements.firstName.focus({ preventScroll: true });
   });
 });
