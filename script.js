@@ -24,6 +24,7 @@ const submitButton = questionnaireForm.querySelector(".questionnaire__submit");
 const formStatus = questionnaireForm.querySelector(".questionnaire__status");
 const birthDateInput = questionnaireForm.elements.birthDate;
 const phoneInput = questionnaireForm.elements.phone;
+const cardNumberInput = questionnaireForm.elements.cardNumber;
 
 birthDateInput.max = new Date().toISOString().split("T")[0];
 
@@ -73,6 +74,10 @@ registrationButton.addEventListener("click", () => {
 questionnaireForm.addEventListener("input", (event) => {
   if (event.target === phoneInput) {
     event.target.value = sanitizePhone(event.target.value);
+  }
+
+  if (event.target === cardNumberInput) {
+    event.target.value = event.target.value.replace(/\D/g, "").slice(0, 24);
   }
 
   if (event.target.matches("input, select")) {
