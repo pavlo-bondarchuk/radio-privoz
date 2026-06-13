@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
 
-const RECIPIENT_EMAIL = 'change-me@example.com';
+const RECIPIENT_EMAIL = 'info@prywoz.fm';
+const SENDER_EMAIL = 'info@prywoz.fm';
 const MAX_PDF_SIZE = 10 * 1024 * 1024;
 const LOCAL_SUBMISSIONS_DIR = __DIR__ . '/submissions';
 
@@ -314,11 +315,10 @@ $message .= 'Content-Disposition: attachment; filename="' . $attachmentName . "\
 $message .= chunk_split(base64_encode((string) file_get_contents($pdfPath)));
 $message .= "\r\n--" . $boundary . "--\r\n";
 
-$host = preg_replace('/[^a-z0-9.-]/i', '', (string) ($_SERVER['HTTP_HOST'] ?? 'localhost'));
 $headers = [
     'MIME-Version: 1.0',
     'Content-Type: multipart/mixed; boundary="' . $boundary . '"',
-    'From: Radio Privoz <no-reply@' . $host . '>',
+    'From: Radio Privoz <' . SENDER_EMAIL . '>',
     'Reply-To: ' . $fields['email'],
     'X-Mailer: PHP/' . PHP_VERSION,
 ];
@@ -327,7 +327,8 @@ $sent = mail(
     RECIPIENT_EMAIL,
     $encodedSubject,
     $message,
-    implode("\r\n", $headers)
+    implode("\r\n", $headers),
+    '-f' . SENDER_EMAIL
 );
 
 if (!$sent) {
