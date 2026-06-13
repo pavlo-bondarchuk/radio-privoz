@@ -87,6 +87,7 @@ select {
 .radio {
   position: relative;
   display: grid;
+  grid-template-rows: 1fr auto;
   min-height: 100svh;
   overflow: hidden;
   isolation: isolate;
@@ -94,6 +95,36 @@ select {
     radial-gradient(circle at 50% 34%, rgba(104, 27, 147, 0.2), transparent 34%),
     radial-gradient(circle at 50% 100%, rgba(93, 24, 50, 0.24), transparent 42%),
     linear-gradient(135deg, #090018 0%, var(--deep-plum) 48%, #090018 100%);
+}
+
+.site-footer {
+  padding: 12px var(--container-gutter) 20px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: "Oswald", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  color: rgba(233, 97, 241, 0.82);
+  text-decoration: none;
+  transition:
+    color 180ms ease,
+    text-shadow 180ms ease;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: #ffffff;
+  text-shadow:
+    0 0 8px rgba(233, 97, 241, 0.9),
+    0 0 18px rgba(104, 27, 147, 0.8);
 }
 
 .radio::before {
