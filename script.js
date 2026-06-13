@@ -24,6 +24,7 @@ const player = new Plyr("#player", {
 });
 
 const audio = document.querySelector("#player");
+const soundHint = document.querySelector(".sound-hint");
 const registrationButton = document.querySelector(".registration-button");
 const hero = document.querySelector(".hero");
 const questionnaire = document.querySelector("#questionnaire");
@@ -69,22 +70,53 @@ const otherCountryRegions = ["НЕ ПРИМЕНЯЕТСЯ", "ДРУГОЕ"];
 
 birthDateInput.max = new Date().toISOString().split("T")[0];
 
+let playbackStarting = false;
+let pointerPlaybackAttempted = false;
+
 async function startPlayback() {
+  if (playbackStarting || !audio.paused) {
+    return !audio.paused;
+  }
+
+  playbackStarting = true;
   player.muted = false;
   player.volume = 1;
 
   try {
     await player.play();
+    return !audio.paused;
   } catch {
     // Browsers may require a user gesture before starting audible media.
+    return false;
+  } finally {
+    playbackStarting = false;
   }
 }
 
-function startPlaybackAfterInteraction() {
-  startPlayback();
+function hideSoundHint() {
+  soundHint.classList.add("sound-hint--hidden");
+  soundHint.setAttribute("aria-hidden", "true");
+  window.removeEventListener("pointermove", handlePointerMove);
   window.removeEventListener("pointerdown", startPlaybackAfterInteraction);
   window.removeEventListener("keydown", startPlaybackAfterInteraction);
-  window.removeEventListener("touchstart", startPlaybackAfterInteraction);
+  window.removeEventListener("wheel", startPlaybackAfterInteraction);
+}
+
+async function startPlaybackAfterInteraction() {
+  if (await startPlayback()) {
+    hideSoundHint();
+  }
+}
+
+function handlePointerMove(event) {
+  soundHint.classList.add("sound-hint--following");
+  soundHint.style.setProperty("--sound-hint-x", `${event.clientX}px`);
+  soundHint.style.setProperty("--sound-hint-y", `${event.clientY}px`);
+
+  if (!pointerPlaybackAttempted) {
+    pointerPlaybackAttempted = true;
+    startPlaybackAfterInteraction();
+  }
 }
 
 window.addEventListener(
@@ -100,16 +132,19 @@ window.addEventListener(
   { once: true },
 );
 
-window.addEventListener("pointerdown", startPlaybackAfterInteraction, {
-  once: true,
+audio.addEventListener("play", hideSoundHint, { once: true });
+
+window.addEventListener("pointermove", handlePointerMove, {
   passive: true,
 });
-window.addEventListener("touchstart", startPlaybackAfterInteraction, {
-  once: true,
+window.addEventListener("pointerdown", startPlaybackAfterInteraction, {
   passive: true,
 });
 window.addEventListener("keydown", startPlaybackAfterInteraction, {
-  once: true,
+  passive: true,
+});
+window.addEventListener("wheel", startPlaybackAfterInteraction, {
+  passive: true,
 });
 
 registrationButton.addEventListener("click", () => {

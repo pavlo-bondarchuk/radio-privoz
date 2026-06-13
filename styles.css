@@ -41,6 +41,49 @@ select {
   font: inherit;
 }
 
+.sound-hint {
+  --sound-hint-x: 50vw;
+  --sound-hint-y: 24px;
+
+  position: fixed;
+  z-index: 100;
+  top: var(--sound-hint-y);
+  left: var(--sound-hint-x);
+  max-width: min(340px, calc(100vw - 32px));
+  padding: 10px 16px;
+  border: 1px solid rgba(233, 97, 241, 0.9);
+  border-radius: 999px;
+  color: #ffffff;
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(14px, 1.2vw, 18px);
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  text-align: center;
+  background: rgba(18, 1, 48, 0.94);
+  box-shadow:
+    0 0 8px rgba(233, 97, 241, 0.85),
+    0 0 24px rgba(104, 27, 147, 0.75);
+  opacity: 1;
+  pointer-events: none;
+  transform: translate(-50%, 0);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.sound-hint--following {
+  transform: translate(18px, 18px);
+}
+
+.sound-hint--hidden {
+  opacity: 0;
+  transform: translate(-50%, -8px) scale(0.96);
+}
+
+.sound-hint--following.sound-hint--hidden {
+  transform: translate(18px, 10px) scale(0.96);
+}
+
 .radio {
   position: relative;
   display: grid;
@@ -787,6 +830,24 @@ select {
 }
 
 @media (max-width: 520px) {
+  .sound-hint {
+    top: auto;
+    right: 16px;
+    bottom: 18px;
+    left: 16px;
+    max-width: none;
+    transform: none;
+  }
+
+  .sound-hint--following {
+    transform: none;
+  }
+
+  .sound-hint--hidden,
+  .sound-hint--following.sound-hint--hidden {
+    transform: translateY(8px) scale(0.96);
+  }
+
   .player-shell .plyr__controls {
     flex-wrap: wrap;
     gap: 4px;
