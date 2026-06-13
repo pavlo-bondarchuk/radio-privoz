@@ -25,6 +25,37 @@ const formStatus = questionnaireForm.querySelector(".questionnaire__status");
 const birthDateInput = questionnaireForm.elements.birthDate;
 const phoneInput = questionnaireForm.elements.phone;
 const cardNumberInput = questionnaireForm.elements.cardNumber;
+const originCountrySelect = questionnaireForm.elements.originCountry;
+const regionSelect = questionnaireForm.elements.voivodeship;
+
+const ukrainianRegions = [
+  "ВИННИЦКАЯ ОБЛАСТЬ",
+  "ВОЛЫНСКАЯ ОБЛАСТЬ",
+  "ДНЕПРОПЕТРОВСКАЯ ОБЛАСТЬ",
+  "ДОНЕЦКАЯ ОБЛАСТЬ",
+  "ЖИТОМИРСКАЯ ОБЛАСТЬ",
+  "ЗАКАРПАТСКАЯ ОБЛАСТЬ",
+  "ЗАПОРОЖСКАЯ ОБЛАСТЬ",
+  "ИВАНО-ФРАНКОВСКАЯ ОБЛАСТЬ",
+  "КИЕВСКАЯ ОБЛАСТЬ",
+  "КИРОВОГРАДСКАЯ ОБЛАСТЬ",
+  "ЛУГАНСКАЯ ОБЛАСТЬ",
+  "ЛЬВОВСКАЯ ОБЛАСТЬ",
+  "НИКОЛАЕВСКАЯ ОБЛАСТЬ",
+  "ОДЕССКАЯ ОБЛАСТЬ",
+  "ПОЛТАВСКАЯ ОБЛАСТЬ",
+  "РОВНЕНСКАЯ ОБЛАСТЬ",
+  "СУМСКАЯ ОБЛАСТЬ",
+  "ТЕРНОПОЛЬСКАЯ ОБЛАСТЬ",
+  "ХАРЬКОВСКАЯ ОБЛАСТЬ",
+  "ХЕРСОНСКАЯ ОБЛАСТЬ",
+  "ХМЕЛЬНИЦКАЯ ОБЛАСТЬ",
+  "ЧЕРКАССКАЯ ОБЛАСТЬ",
+  "ЧЕРНОВИЦКАЯ ОБЛАСТЬ",
+  "ЧЕРНИГОВСКАЯ ОБЛАСТЬ",
+];
+
+const otherCountryRegions = ["НЕ ПРИМЕНЯЕТСЯ", "ДРУГОЕ"];
 
 birthDateInput.max = new Date().toISOString().split("T")[0];
 
@@ -98,6 +129,10 @@ phoneInput.addEventListener("blur", () => {
 });
 
 questionnaireForm.addEventListener("change", (event) => {
+  if (event.target === originCountrySelect) {
+    updateRegionOptions();
+  }
+
   if (event.target.matches("input, select")) {
     validateField(event.target);
   }
@@ -348,6 +383,28 @@ function sanitizePhone(value) {
   const digits = value.replace(/\D/g, "").slice(0, 15);
 
   return `+${digits}`;
+}
+
+function updateRegionOptions() {
+  const country = originCountrySelect.value;
+  const regions =
+    country === "Украина"
+      ? ukrainianRegions
+      : country
+        ? otherCountryRegions
+        : [];
+  const placeholder = country
+    ? "Выберите область"
+    : "Сначала выберите страну";
+
+  regionSelect.replaceChildren(new Option(placeholder, ""));
+
+  regions.forEach((region) => {
+    regionSelect.add(new Option(region, region));
+  });
+
+  regionSelect.value = "";
+  validateField(regionSelect);
 }
 
 function loadImage(src) {
