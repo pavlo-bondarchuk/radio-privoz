@@ -38,6 +38,7 @@ const originCountrySelect = questionnaireForm.elements.originCountry;
 const regionSelect = questionnaireForm.elements.voivodeship;
 
 const ukrainianRegions = [
+  "АР КРЫМ",
   "ВИННИЦКАЯ ОБЛАСТЬ",
   "ВОЛЫНСКАЯ ОБЛАСТЬ",
   "ДНЕПРОПЕТРОВСКАЯ ОБЛАСТЬ",
