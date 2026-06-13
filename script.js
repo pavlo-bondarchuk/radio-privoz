@@ -1,4 +1,5 @@
 const player = new Plyr("#player", {
+  autoplay: true,
   controls: [
     "play",
     "current-time",
@@ -8,6 +9,14 @@ const player = new Plyr("#player", {
     "volume",
   ],
   invertTime: false,
+  loop: {
+    active: true,
+  },
+  muted: false,
+  storage: {
+    enabled: false,
+  },
+  volume: 1,
   keyboard: {
     focused: true,
     global: true,
@@ -60,17 +69,21 @@ const otherCountryRegions = ["НЕ ПРИМЕНЯЕТСЯ", "ДРУГОЕ"];
 birthDateInput.max = new Date().toISOString().split("T")[0];
 
 async function startPlayback() {
+  player.muted = false;
+  player.volume = 1;
+
   try {
     await player.play();
   } catch {
-    player.muted = true;
-
-    try {
-      await player.play();
-    } catch {
-      // Some browsers require a user interaction before any playback.
-    }
+    // Browsers may require a user gesture before starting audible media.
   }
+}
+
+function startPlaybackAfterInteraction() {
+  startPlayback();
+  window.removeEventListener("pointerdown", startPlaybackAfterInteraction);
+  window.removeEventListener("keydown", startPlaybackAfterInteraction);
+  window.removeEventListener("touchstart", startPlaybackAfterInteraction);
 }
 
 window.addEventListener(
@@ -85,6 +98,18 @@ window.addEventListener(
   },
   { once: true },
 );
+
+window.addEventListener("pointerdown", startPlaybackAfterInteraction, {
+  once: true,
+  passive: true,
+});
+window.addEventListener("touchstart", startPlaybackAfterInteraction, {
+  once: true,
+  passive: true,
+});
+window.addEventListener("keydown", startPlaybackAfterInteraction, {
+  once: true,
+});
 
 registrationButton.addEventListener("click", () => {
   const isOpening = questionnaire.hidden && successCard.hidden;
