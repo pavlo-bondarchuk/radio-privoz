@@ -412,6 +412,16 @@ select {
   color: rgba(255, 255, 255, 0.54);
 }
 
+.form-field input[type="date"] {
+  color-scheme: dark;
+}
+
+.form-field input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.9;
+  cursor: pointer;
+}
+
 .form-field input:focus,
 .form-field select:focus {
   border-color: #f58cff;

@@ -272,14 +272,17 @@ async function createQuestionnairePdf(values) {
   for (const [label, value] of entries) {
     context.fillStyle = "#e961f1";
     context.font = "bold 29px Arial";
-    context.fillText(`${label}:`, 120, y);
+    const labelText = `${label}:`;
+    const labelWidth = context.measureText(labelText).width;
+    const valueX = Math.min(Math.max(450, 120 + labelWidth + 40), 820);
+    context.fillText(labelText, 120, y);
 
     context.fillStyle = "#ffffff";
     context.font = "29px Arial";
-    const lines = wrapCanvasText(context, String(value), 720);
+    const lines = wrapCanvasText(context, String(value), 1120 - valueX);
 
     lines.forEach((line, index) => {
-      context.fillText(line, 450, y + index * 38);
+      context.fillText(line, valueX, y + index * 38);
     });
 
     y += Math.max(72, lines.length * 38 + 30);
