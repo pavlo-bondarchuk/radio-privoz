@@ -6,6 +6,7 @@ header('Content-Type: application/json; charset=utf-8');
 
 const RECIPIENT_EMAIL = 'change-me@example.com';
 const MAX_PDF_SIZE = 10 * 1024 * 1024;
+const LOCAL_SUBMISSIONS_DIR = __DIR__ . '/submissions';
 
 function respond(int $status, bool $success, string $message): never
 {
@@ -30,11 +31,26 @@ function containsHeaderInjection(string $value): bool
     return preg_match('/[\r\n]/', $value) === 1;
 }
 
+function isLocalRequest(): bool
+{
+    $address = (string) ($_SERVER['REMOTE_ADDR'] ?? '');
+    return in_array($address, ['127.0.0.1', '::1'], true);
+}
+
+function safeFilePart(string $value): string
+{
+    $value = function_exists('mb_strtolower')
+        ? mb_strtolower($value)
+        : strtolower($value);
+    $value = preg_replace('/[^\p{L}\p{N}]+/u', '-', $value) ?? '';
+    return trim($value, '-') ?: 'questionnaire';
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     respond(405, false, 'Метод запроса не поддерживается.');
 }
 
-if (RECIPIENT_EMAIL === 'change-me@example.com') {
+if (!isLocalRequest() && RECIPIENT_EMAIL === 'change-me@example.com') {
     respond(503, false, 'Email получателя не настроен на сервере.');
 }
 
@@ -142,6 +158,40 @@ $textLines = ["Новая анкета Radio Privoz FM", ''];
 
 foreach ($labels as $key => $label) {
     $textLines[] = $label . ': ' . $fields[$key];
+}
+
+if (isLocalRequest()) {
+    if (
+        !is_dir(LOCAL_SUBMISSIONS_DIR) &&
+        !mkdir(LOCAL_SUBMISSIONS_DIR, 0775, true) &&
+        !is_dir(LOCAL_SUBMISSIONS_DIR)
+    ) {
+        respond(500, false, 'Не удалось создать папку локальных анкет.');
+    }
+
+    $timestamp = date('Ymd-His');
+    $baseName = $timestamp . '-' . safeFilePart($applicant);
+    $savedPdfPath = LOCAL_SUBMISSIONS_DIR . '/' . $baseName . '.pdf';
+    $savedTextPath = LOCAL_SUBMISSIONS_DIR . '/' . $baseName . '.txt';
+    $localText = implode(PHP_EOL, array_merge(
+        $textLines,
+        [
+            '',
+            'PDF: ' . basename($savedPdfPath),
+            'Дата сохранения: ' . date('c'),
+        ]
+    )) . PHP_EOL;
+
+    if (
+        !copy($pdfPath, $savedPdfPath) ||
+        file_put_contents($savedTextPath, $localText, LOCK_EX) === false
+    ) {
+        @unlink($savedPdfPath);
+        @unlink($savedTextPath);
+        respond(500, false, 'Не удалось сохранить локальную анкету.');
+    }
+
+    respond(200, true, 'Анкета и PDF сохранены локально.');
 }
 
 $message = '--' . $boundary . "\r\n";
