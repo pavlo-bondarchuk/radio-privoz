@@ -26,6 +26,9 @@ const player = new Plyr("#player", {
 const audio = document.querySelector("#player");
 const soundHint = document.querySelector(".sound-hint");
 const registrationButton = document.querySelector(".registration-button");
+const rulesButton = document.querySelector(".rules-button");
+const rulesModal = document.querySelector("#rules-modal");
+const rulesModalClose = rulesModal.querySelector(".rules-modal__close");
 const hero = document.querySelector(".hero");
 const questionnaire = document.querySelector("#anketa");
 const questionnaireForm = document.querySelector("#questionnaire-form");
@@ -182,6 +185,31 @@ registrationButton.addEventListener("click", () => {
 
 window.addEventListener("hashchange", openQuestionnaireFromHash);
 openQuestionnaireFromHash();
+
+function openRulesModal() {
+  rulesModal.hidden = false;
+  document.body.classList.add("modal-open");
+  rulesModalClose.focus();
+}
+
+function closeRulesModal() {
+  rulesModal.hidden = true;
+  document.body.classList.remove("modal-open");
+  rulesButton.focus();
+}
+
+rulesButton.addEventListener("click", openRulesModal);
+rulesModalClose.addEventListener("click", closeRulesModal);
+rulesModal.addEventListener("click", (event) => {
+  if (event.target === rulesModal) {
+    closeRulesModal();
+  }
+});
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !rulesModal.hidden) {
+    closeRulesModal();
+  }
+});
 
 questionnaireForm.addEventListener("input", (event) => {
   if (event.target === phoneInput) {
