@@ -27,7 +27,7 @@ const audio = document.querySelector("#player");
 const soundHint = document.querySelector(".sound-hint");
 const registrationButton = document.querySelector(".registration-button");
 const hero = document.querySelector(".hero");
-const questionnaire = document.querySelector("#questionnaire");
+const questionnaire = document.querySelector("#anketa");
 const questionnaireForm = document.querySelector("#questionnaire-form");
 const successCard = document.querySelector("#success-card");
 const submitButton = questionnaireForm.querySelector(".questionnaire__submit");
@@ -147,21 +147,41 @@ window.addEventListener("wheel", startPlaybackAfterInteraction, {
   passive: true,
 });
 
-registrationButton.addEventListener("click", () => {
-  const isOpening = questionnaire.hidden && successCard.hidden;
-
-  if (!isOpening) {
+function openQuestionnaire({ scroll = false, focus = true } = {}) {
+  if (!successCard.hidden) {
     return;
   }
 
-  questionnaire.hidden = false;
-  hero.classList.add("hero--expanded");
-  registrationButton.setAttribute("aria-expanded", "true");
+  if (questionnaire.hidden) {
+    questionnaire.hidden = false;
+    hero.classList.add("hero--expanded");
+    registrationButton.setAttribute("aria-expanded", "true");
+  }
 
   requestAnimationFrame(() => {
-    questionnaireForm.elements.firstName.focus({ preventScroll: true });
+    if (scroll) {
+      questionnaire.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    if (focus) {
+      questionnaireForm.elements.firstName.focus({ preventScroll: true });
+    }
   });
+}
+
+function openQuestionnaireFromHash() {
+  if (window.location.hash.toLowerCase() === "#anketa") {
+    openQuestionnaire({ scroll: true, focus: false });
+  }
+}
+
+registrationButton.addEventListener("click", () => {
+  window.history.replaceState(null, "", "#anketa");
+  openQuestionnaire();
 });
+
+window.addEventListener("hashchange", openQuestionnaireFromHash);
+openQuestionnaireFromHash();
 
 questionnaireForm.addEventListener("input", (event) => {
   if (event.target === phoneInput) {
