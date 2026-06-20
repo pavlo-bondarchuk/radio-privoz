@@ -385,21 +385,6 @@ select {
   font-weight: 400;
 }
 
-.registration-info a {
-  color: var(--neon-pink);
-  text-decoration-color: rgba(233, 97, 241, 0.55);
-  text-underline-offset: 3px;
-  transition:
-    color 180ms ease,
-    text-shadow 180ms ease;
-}
-
-.registration-info a:hover,
-.registration-info a:focus-visible {
-  color: #ffffff;
-  text-shadow: 0 0 12px rgba(233, 97, 241, 0.9);
-}
-
 .questionnaire,
 .success-card {
   width: min(100%, 1120px);
