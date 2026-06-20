@@ -361,6 +361,45 @@ select {
   transform: translateY(0);
 }
 
+.registration-info {
+  width: min(100%, 900px);
+  margin-top: clamp(22px, 2.5vw, 34px);
+  color: rgba(255, 255, 255, 0.72);
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(16px, 1.45vw, 21px);
+  font-weight: 400;
+  line-height: 1.45;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.registration-info p {
+  margin: 0;
+}
+
+.registration-info p + p {
+  margin-top: 7px;
+}
+
+.registration-info strong {
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 400;
+}
+
+.registration-info a {
+  color: var(--neon-pink);
+  text-decoration-color: rgba(233, 97, 241, 0.55);
+  text-underline-offset: 3px;
+  transition:
+    color 180ms ease,
+    text-shadow 180ms ease;
+}
+
+.registration-info a:hover,
+.registration-info a:focus-visible {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(233, 97, 241, 0.9);
+}
+
 .questionnaire,
 .success-card {
   width: min(100%, 1120px);
