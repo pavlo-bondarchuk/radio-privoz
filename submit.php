@@ -270,37 +270,39 @@ foreach ($labels as $key => $label) {
     $textLines[] = $label . ': ' . $fields[$key];
 }
 
-if (isLocalRequest()) {
-    if (
-        !is_dir(LOCAL_SUBMISSIONS_DIR) &&
-        !mkdir(LOCAL_SUBMISSIONS_DIR, 0775, true) &&
-        !is_dir(LOCAL_SUBMISSIONS_DIR)
-    ) {
-        respond(500, false, 'Не удалось создать папку локальных анкет.');
-    }
+$isLocal = isLocalRequest();
 
-    $timestamp = date('Ymd-His');
-    $baseName = $timestamp . '-' . safeFilePart($applicant);
-    $savedPdfPath = LOCAL_SUBMISSIONS_DIR . '/' . $baseName . '.pdf';
-    $savedTextPath = LOCAL_SUBMISSIONS_DIR . '/' . $baseName . '.txt';
-    $localText = implode(PHP_EOL, array_merge(
-        $textLines,
-        [
-            '',
-            'PDF: ' . basename($savedPdfPath),
-            'Дата сохранения: ' . date('c'),
-        ]
-    )) . PHP_EOL;
+if (
+    !is_dir(LOCAL_SUBMISSIONS_DIR) &&
+    !mkdir(LOCAL_SUBMISSIONS_DIR, 0775, true) &&
+    !is_dir(LOCAL_SUBMISSIONS_DIR)
+) {
+    respond(500, false, 'Не удалось создать папку анкет.');
+}
 
-    if (
-        !copy($pdfPath, $savedPdfPath) ||
-        file_put_contents($savedTextPath, $localText, LOCK_EX) === false
-    ) {
-        @unlink($savedPdfPath);
-        @unlink($savedTextPath);
-        respond(500, false, 'Не удалось сохранить локальную анкету.');
-    }
+$timestamp = date('Ymd-His');
+$baseName = $timestamp . '-' . safeFilePart($applicant);
+$savedPdfPath = LOCAL_SUBMISSIONS_DIR . '/' . $baseName . '.pdf';
+$savedTextPath = LOCAL_SUBMISSIONS_DIR . '/' . $baseName . '.txt';
+$localText = implode(PHP_EOL, array_merge(
+    $textLines,
+    [
+        '',
+        'PDF: ' . basename($savedPdfPath),
+        'Дата сохранения: ' . date('c'),
+    ]
+)) . PHP_EOL;
 
+if (
+    !copy($pdfPath, $savedPdfPath) ||
+    file_put_contents($savedTextPath, $localText, LOCK_EX) === false
+) {
+    @unlink($savedPdfPath);
+    @unlink($savedTextPath);
+    respond(500, false, 'Не удалось сохранить анкету.');
+}
+
+if ($isLocal) {
     respond(200, true, 'Анкета и PDF сохранены локально.');
 }
 
