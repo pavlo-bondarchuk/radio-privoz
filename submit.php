@@ -32,6 +32,33 @@ function containsHeaderInjection(string $value): bool
     return preg_match('/[\r\n]/', $value) === 1;
 }
 
+function isPlainEmail(string $value): bool
+{
+    if (
+        containsHeaderInjection($value) ||
+        preg_match('/[^\x21-\x7E]/', $value) === 1 ||
+        stripos($value, 'xn--') !== false ||
+        !filter_var($value, FILTER_VALIDATE_EMAIL)
+    ) {
+        return false;
+    }
+
+    $parts = explode('@', $value);
+
+    if (count($parts) !== 2) {
+        return false;
+    }
+
+    [$localPart, $domain] = $parts;
+    $domain = strtolower($domain);
+
+    return (
+        preg_match('/^[a-z0-9.!#$%&\'*+\/=?^_`{|}~-]+$/', $localPart) === 1 &&
+        preg_match('/^(?!.*\.\.)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$/', $domain) === 1 &&
+        preg_match('/\.[a-z]{2,24}$/', $domain) === 1
+    );
+}
+
 function isLocalRequest(): bool
 {
     $address = (string) ($_SERVER['REMOTE_ADDR'] ?? '');
@@ -55,10 +82,12 @@ if (!isLocalRequest() && RECIPIENT_EMAIL === 'change-me@example.com') {
     respond(503, false, 'Email получателя не настроен на сервере.');
 }
 
+$email = strtolower(clean('email', 120));
+
 $fields = [
     'firstName' => clean('firstName', 60),
     'lastName' => clean('lastName', 60),
-    'email' => clean('email', 120),
+    'email' => $email,
     'birthDate' => clean('birthDate', 10),
     'familySize' => clean('familySize', 40),
     'originCountry' => clean('originCountry', 60),
@@ -188,10 +217,7 @@ if (!in_array($fields['employment'], $allowedEmployment, true)) {
     respond(422, false, 'Выберите профессию из списка.');
 }
 
-if (
-    !filter_var($fields['email'], FILTER_VALIDATE_EMAIL) ||
-    containsHeaderInjection($fields['email'])
-) {
+if (!isPlainEmail($fields['email'])) {
     respond(422, false, 'Указан некорректный email.');
 }
 

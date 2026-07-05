@@ -36,6 +36,7 @@ const successCard = document.querySelector("#success-card");
 const submitButton = questionnaireForm.querySelector(".questionnaire__submit");
 const formStatus = questionnaireForm.querySelector(".questionnaire__status");
 const birthDateInput = questionnaireForm.elements.birthDate;
+const emailInput = questionnaireForm.elements.email;
 const phoneInput = questionnaireForm.elements.phone;
 const cardNumberInput = questionnaireForm.elements.cardNumber;
 const originCountrySelect = questionnaireForm.elements.originCountry;
@@ -237,6 +238,11 @@ phoneInput.addEventListener("blur", () => {
   }
 });
 
+emailInput.addEventListener("blur", () => {
+  emailInput.value = normalizeEmail(emailInput.value);
+  validateField(emailInput);
+});
+
 questionnaireForm.addEventListener("change", (event) => {
   if (event.target === originCountrySelect) {
     updateRegionOptions();
@@ -298,6 +304,16 @@ function validateField(field) {
     );
   }
 
+  if (field === emailInput) {
+    const email = normalizeEmail(field.value);
+
+    field.setCustomValidity(
+      email && !isPlainEmail(email)
+        ? "Введите email латиницей без кириллических символов в домене."
+        : "",
+    );
+  }
+
   const isValid = field.checkValidity();
   field.setAttribute("aria-invalid", String(!isValid));
 
@@ -342,7 +358,7 @@ function getFormValues() {
   return {
     firstName: data.get("firstName"),
     lastName: data.get("lastName"),
-    email: data.get("email"),
+    email: normalizeEmail(data.get("email")),
     birthDate: data.get("birthDate"),
     familySize: data.get("familySize"),
     originCountry: data.get("originCountry"),
@@ -492,6 +508,31 @@ function sanitizePhone(value) {
   const digits = value.replace(/\D/g, "").slice(0, 15);
 
   return `+${digits}`;
+}
+
+function normalizeEmail(value) {
+  return String(value).trim().toLowerCase();
+}
+
+function isPlainEmail(value) {
+  const email = normalizeEmail(value);
+  const parts = email.split("@");
+
+  if (
+    parts.length !== 2 ||
+    !/^[\x21-\x7E]+$/.test(email) ||
+    email.includes("xn--")
+  ) {
+    return false;
+  }
+
+  const [localPart, domain] = parts;
+
+  return (
+    /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+$/.test(localPart) &&
+    /^(?!.*\.\.)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$/.test(domain) &&
+    /\.[a-z]{2,24}$/.test(domain)
+  );
 }
 
 function updateRegionOptions() {
