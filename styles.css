@@ -750,6 +750,64 @@ select {
   font-weight: 400;
 }
 
+.card-type-options {
+  display: grid;
+  gap: 10px;
+}
+
+.card-type-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 34px;
+  color: rgba(255, 255, 255, 0.86);
+  font-family: Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.card-type-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  opacity: 0;
+}
+
+.card-type-option__box {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border: 2px solid var(--neon-pink);
+  border-radius: 5px;
+  background: rgba(18, 1, 48, 0.7);
+  box-shadow: 0 0 12px rgba(233, 97, 241, 0.18);
+}
+
+.card-type-option input:checked + .card-type-option__box::after {
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  width: 7px;
+  height: 13px;
+  border-right: 3px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
+  content: "";
+  transform: rotate(45deg);
+}
+
+.card-type-option input:focus-visible + .card-type-option__box {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.card-type-option input[aria-invalid="true"] + .card-type-option__box {
+  border-color: #ff6d95;
+  box-shadow: 0 0 14px rgba(255, 109, 149, 0.4);
+}
+
 .questionnaire__submit {
   width: 100%;
   min-height: 78px;
@@ -1032,7 +1090,20 @@ select {
     flex-basis: 24px;
   }
 
+  .card-type-option__box {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+  }
+
   .consent input:checked + .consent__box::after {
+    top: 3px;
+    left: 7px;
+    width: 6px;
+    height: 12px;
+  }
+
+  .card-type-option input:checked + .card-type-option__box::after {
     top: 3px;
     left: 7px;
     width: 6px;

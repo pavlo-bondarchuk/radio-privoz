@@ -98,6 +98,7 @@ $fields = [
     'employment' => clean('employment', 80),
     'phone' => clean('phone', 24),
     'cardNumber' => clean('cardNumber', 24),
+    'cardType' => clean('cardType', 40),
     'personalDataConsent' => clean('personalDataConsent', 3),
     'notificationsConsent' => clean('notificationsConsent', 3),
 ];
@@ -188,6 +189,12 @@ $allowedEmployment = [
     'IT',
     'ДРУГОЕ',
 ];
+$allowedCardTypes = [
+    'Карта клиента',
+    'Карта Premium',
+    'Карта Premium+',
+    'Карта VIP',
+];
 
 if (!in_array($fields['familySize'], $allowedFamilySizes, true)) {
     respond(422, false, 'Выберите количество пользователей карты.');
@@ -227,6 +234,10 @@ if (preg_match('/^\+?[0-9\s()\-]{9,20}$/', $fields['phone']) !== 1) {
 
 if (preg_match('/^[0-9]{6,24}$/', $fields['cardNumber']) !== 1) {
     respond(422, false, 'Указан некорректный номер карты.');
+}
+
+if (!in_array($fields['cardType'], $allowedCardTypes, true)) {
+    respond(422, false, 'Выберите тип карты из списка.');
 }
 
 $birthDate = DateTimeImmutable::createFromFormat('!Y-m-d', $fields['birthDate']);
@@ -286,6 +297,7 @@ $labels = [
     'employment' => 'Где работает',
     'phone' => 'Телефон',
     'cardNumber' => 'Номер карты',
+    'cardType' => 'Тип карты',
     'personalDataConsent' => 'Согласие на обработку данных',
     'notificationsConsent' => 'Согласие на уведомления',
 ];

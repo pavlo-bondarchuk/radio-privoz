@@ -292,7 +292,26 @@ questionnaireForm.addEventListener("submit", async (event) => {
 
 function validateField(field) {
   if (field.type === "radio") {
-    return true;
+    const radioGroup = [
+      ...questionnaireForm.querySelectorAll(
+        `input[type="radio"][name="${field.name}"]`,
+      ),
+    ];
+    const isRequired = radioGroup.some((radio) => radio.required);
+    const isValid = !isRequired || radioGroup.some((radio) => radio.checked);
+
+    radioGroup.forEach((radio) => {
+      radio.setAttribute("aria-invalid", String(!isValid));
+    });
+
+    const fieldContainer = field.closest(".form-field");
+    const errorElement = fieldContainer?.querySelector(".form-field__error") || null;
+
+    if (errorElement) {
+      errorElement.textContent = isValid ? "" : "Выберите один тип карты.";
+    }
+
+    return isValid;
   }
 
   if (field === birthDateInput) {
@@ -369,6 +388,7 @@ function getFormValues() {
     employment: data.get("employment"),
     phone: data.get("phone"),
     cardNumber: data.get("cardNumber"),
+    cardType: data.get("cardType"),
     personalDataConsent: data.has("personalDataConsent") ? "Да" : "Нет",
     notificationsConsent: data.has("notificationsConsent") ? "Да" : "Нет",
   };
@@ -423,6 +443,7 @@ async function createQuestionnairePdf(values) {
     ["Где работает", values.employment],
     ["Телефон", values.phone],
     ["Номер карты", values.cardNumber],
+    ["Тип карты", values.cardType],
     ["Обработка персональных данных", values.personalDataConsent],
     ["Получение уведомлений", values.notificationsConsent],
   ];
