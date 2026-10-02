@@ -399,8 +399,11 @@
   });
   const t = (key) =>
     C[key]?.[languages.indexOf(language)] || C[key]?.[0] || key;
+  const normalizeText = (value) => value.replace(/\s+/g, " ").trim();
   const reverse = new Map();
-  Object.entries(C).forEach(([k, v]) => v.forEach((x) => reverse.set(x, k)));
+  Object.entries(C).forEach(([k, v]) =>
+    v.forEach((x) => reverse.set(normalizeText(x), k)),
+  );
   const titleKeys = {
     listen: "listen",
     news: "news",
@@ -427,41 +430,35 @@
       .querySelectorAll("main *, [data-cookie-consent] *")
       .forEach((n) => {
         if (n.dataset.i18n || n.children.length) return;
-        const k = reverse.get(n.textContent.trim());
+        const k = reverse.get(normalizeText(n.textContent));
         if (k) n.dataset.i18n = k;
       });
   const renderTime = () => {
     const locale = { uk: "uk-UA", pl: "pl-PL", ru: "ru-RU" }[language],
       now = new Date();
-    document
-      .querySelector("[data-local-time]")
-      ?.replaceChildren(
-        new Intl.DateTimeFormat(locale, {
-          timeZone: "Europe/Warsaw",
-          hour: "2-digit",
-          minute: "2-digit",
-        }).format(now),
-      );
-    document
-      .querySelector("[data-local-date]")
-      ?.replaceChildren(
-        new Intl.DateTimeFormat(locale, {
-          timeZone: "Europe/Warsaw",
-          weekday: "short",
-          day: "numeric",
-          month: "long",
-        }).format(now),
-      );
-    document
-      .querySelector("[data-program-date]")
-      ?.replaceChildren(
-        new Intl.DateTimeFormat(locale, {
-          timeZone: "Europe/Warsaw",
-          weekday: "long",
-          day: "numeric",
-          month: "long",
-        }).format(now),
-      );
+    document.querySelector("[data-local-time]")?.replaceChildren(
+      new Intl.DateTimeFormat(locale, {
+        timeZone: "Europe/Warsaw",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(now),
+    );
+    document.querySelector("[data-local-date]")?.replaceChildren(
+      new Intl.DateTimeFormat(locale, {
+        timeZone: "Europe/Warsaw",
+        weekday: "short",
+        day: "numeric",
+        month: "long",
+      }).format(now),
+    );
+    document.querySelector("[data-program-date]")?.replaceChildren(
+      new Intl.DateTimeFormat(locale, {
+        timeZone: "Europe/Warsaw",
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+      }).format(now),
+    );
   };
   const applyLanguage = (lang) => {
     language = languages.includes(lang) ? lang : "uk";
@@ -500,6 +497,11 @@
 
   let program = null,
     expanded = false;
+  const decodeText = (value) => {
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = value || "";
+    return textarea.value;
+  };
   const row = (item, state) => {
     const el = document.createElement("article"),
       time = document.createElement("time"),
@@ -515,7 +517,7 @@
         : state === "current"
           ? "●"
           : (item.time || "").slice(0, 5);
-    song.textContent = item.song || "РАДИО ПРИВОЗ ФМ";
+    song.textContent = decodeText(item.song) || "РАДИО ПРИВОЗ ФМ";
     badge.textContent = t(
       state === "current" ? "now" : state === "next" ? "next" : "played",
     );
