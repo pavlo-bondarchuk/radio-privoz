@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      (function () {
+        var c = null;
+        try {
+          c = localStorage.getItem("prywoz-analytics-consent");
+        } catch (e) {}
+        gtag("consent", "default", {
+          analytics_storage: c === "accepted" ? "granted" : "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500,
+        });
+      })();
+    </script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-ML3C4NWZ");
+    </script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script>
+      try {
+        let t =
+          localStorage.getItem("prywoz-theme") ||
+          (matchMedia("(prefers-color-scheme:dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t;
+      } catch {}
+    </script>
+    <title>Ефір — РАДИО ПРИВОЗ ФМ</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="./assets/images/favicon-pryvoz.png?v=20260905"
+    />
+    <link rel="stylesheet" href="./styles/tokens.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./styles/pages/home.css?v=20260905-state" />
+    <link rel="stylesheet" href="./styles/components.css" />
+    <link rel="stylesheet" href="./styles/open-fm-redesign.css" />
+    <link
+      rel="stylesheet"
+      href="./styles/pages/portal.css?v=20260905-tagline"
+    />
+    <link rel="stylesheet" href="./styles/pages/inner.css?v=20260905" />
+    <link
+      rel="stylesheet"
+      href="./styles/cookie-consent.css?v=20260907-volume-theme"
+    />
+  </head>
+  <body class="page" data-page="listen">
+    <!-- Google Tag Manager (noscript) --><noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-ML3C4NWZ"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe></noscript
+    ><!-- End Google Tag Manager (noscript) -->
+    <header class="site-header" data-site-header></header>
+    <main class="inner-main">
+      <div class="container">
+        <header class="inner-hero">
+          <p class="inner-kicker">РАДИО ПРИВОЗ ФМ</p>
+          <h1
+            class="inner-title"
+            data-uk="Слухати ефір"
+            data-pl="Słuchaj radia"
+            data-ru="Слушать эфир"
+          >
+            Слухати ефір
+          </h1>
+          <p
+            class="inner-lead"
+            data-uk="Прямий ефір 24/7: власна денна програма та нічний музичний потік."
+            data-pl="Transmisja 24/7: własny program dzienny i nocny strumień muzyczny."
+            data-ru="Прямой эфир 24/7: собственная дневная программа и ночной музыкальный поток."
+          >
+            Прямий ефір 24/7: власна денна програма та нічний музичний потік.
+          </p>
+        </header>
+        <section class="inner-player">
+          <div class="live-player">
+            <div class="live-player__record live-player__record--vinyl">
+              <img
+                class="live-player__record-image"
+                src="./assets/images/home/player-vinyl.png"
+                alt=""
+                width="1254"
+                height="1254"
+              />
+            </div>
+            <div class="live-player__meta">
+              <span class="live-player__label">Зараз в ефірі</span
+              ><strong class="live-player__track">РАДИО ПРИВОЗ ФМ</strong
+              ><span class="live-player__host">Денний ефір · 10:00–20:00</span
+              ><span class="live-player__badge">On air</span>
+            </div>
+            <div class="live-player__controls">
+              <button
+                class="live-player__play"
+                data-inner-play
+                aria-label="Відтворити"
+              >
+                <svg class="icon">
+                  <use href="./assets/icons/lucide-sprite.svg#play"></use>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+        <section
+          class="inner-section track-program"
+          data-track-program
+          aria-live="polite"
+        >
+          <div class="inner-section__head track-program__head">
+            <div>
+              <p class="track-program__eyebrow" data-program-date>Сьогодні</p>
+              <h2>Програма ефіру</h2>
+            </div>
+            <p class="track-program__timezone">Час вказано для Польщі</p>
+          </div>
+          <div class="track-program__summary">
+            <span>Денний ефір · 10:00–20:00</span>
+            <span>Нічний ефір · 20:00–10:00</span>
+          </div>
+          <div class="track-program__list" data-program-list>
+            <p class="track-program__message">Завантажуємо програму…</p>
+          </div>
+          <button
+            class="track-program__more"
+            type="button"
+            data-program-more
+            hidden
+          >
+            Показати більше
+          </button>
+          <p class="track-program__note">
+            Майбутній час є орієнтовним і може змінюватися через джингли або
+            оновлення ефіру.
+          </p>
+        </section>
+      </div>
+    </main>
+    <script src="./scripts/radio-persistence.js?v=20260907-volume-theme"></script>
+    <script src="./scripts/pages/inner.js?v=20260905-tagline"></script>
+    <section
+      class="cookie-consent"
+      data-cookie-consent
+      hidden
+      aria-label="Налаштування аналітичних cookie"
+    >
+      <div class="cookie-consent__copy">
+        <strong>Аналітичні cookie</strong>
+        <p>
+          Допоможіть нам зрозуміти, як відвідувачі користуються сайтом. Рекламні
+          cookie не використовуються.
+        </p>
+      </div>
+      <div class="cookie-consent__actions">
+        <button type="button" data-consent-choice="declined">Відхилити</button
+        ><button type="button" data-consent-choice="accepted">Прийняти</button>
+      </div>
+    </section>
+    <script src="./scripts/cookie-consent.js?v=20260907"></script>
+    <script src="./scripts/analytics-events.js?v=20260907"></script>
+  </body>
+</html>
