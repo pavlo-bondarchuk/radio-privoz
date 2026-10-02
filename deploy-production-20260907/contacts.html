@@ -47,7 +47,7 @@
         document.documentElement.style.colorScheme = t;
       } catch {}
     </script>
-    <title>Ефір — РАДИО ПРИВОЗ ФМ</title>
+    <title>Контакти — РАДИО ПРИВОЗ ФМ</title>
     <link
       rel="icon"
       type="image/png"
@@ -56,7 +56,6 @@
     />
     <link rel="stylesheet" href="./styles/tokens.css" />
     <link rel="stylesheet" href="./styles/main.css" />
-    <link rel="stylesheet" href="./styles/pages/home.css?v=20260905-state" />
     <link rel="stylesheet" href="./styles/components.css" />
     <link rel="stylesheet" href="./styles/open-fm-redesign.css" />
     <link
@@ -69,7 +68,7 @@
       href="./styles/cookie-consent.css?v=20260907-volume-theme"
     />
   </head>
-  <body class="page" data-page="listen">
+  <body class="page" data-page="contacts">
     <!-- Google Tag Manager (noscript) --><noscript
       ><iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-ML3C4NWZ"
@@ -82,85 +81,45 @@
     <main class="inner-main">
       <div class="container">
         <header class="inner-hero">
-          <p class="inner-kicker">РАДИО ПРИВОЗ ФМ</p>
-          <h1
-            class="inner-title"
-            data-uk="Слухати ефір"
-            data-pl="Słuchaj radia"
-            data-ru="Слушать эфир"
-          >
-            Слухати ефір
-          </h1>
-          <p
-            class="inner-lead"
-            data-uk="Прямий ефір 24/7: власна денна програма та нічний музичний потік."
-            data-pl="Transmisja 24/7: własny program dzienny i nocny strumień muzyczny."
-            data-ru="Прямой эфир 24/7: собственная дневная программа и ночной музыкальный поток."
-          >
-            Прямий ефір 24/7: власна денна програма та нічний музичний потік.
+          <p class="inner-kicker">Зворотний зв’язок</p>
+          <h1 class="inner-title">Контакти</h1>
+          <p class="inner-lead">
+            Новина, пропозиція для ефіру, партнерство чи додавання бізнесу —
+            напишіть редакції.
           </p>
         </header>
-        <section class="inner-player">
-          <div class="live-player">
-            <div class="live-player__record live-player__record--vinyl">
-              <img
-                class="live-player__record-image"
-                src="./assets/images/home/player-vinyl.png"
-                alt=""
-                width="1254"
-                height="1254"
-              />
-            </div>
-            <div class="live-player__meta">
-              <span class="live-player__label">Зараз в ефірі</span
-              ><strong class="live-player__track">РАДИО ПРИВОЗ ФМ</strong
-              ><span class="live-player__host">Денний ефір · 10:00–20:00</span
-              ><span class="live-player__badge">On air</span>
-            </div>
-            <div class="live-player__controls">
-              <button
-                class="live-player__play"
-                data-inner-play
-                aria-label="Відтворити"
-              >
-                <svg class="icon">
-                  <use href="./assets/icons/lucide-sprite.svg#play"></use>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </section>
-        <section
-          class="inner-section track-program"
-          data-track-program
-          aria-live="polite"
-        >
-          <div class="inner-section__head track-program__head">
-            <div>
-              <p class="track-program__eyebrow" data-program-date>Сьогодні</p>
-              <h2>Програма ефіру</h2>
-            </div>
-            <p class="track-program__timezone">Час вказано для Польщі</p>
-          </div>
-          <div class="track-program__summary">
-            <span>Денний ефір · 10:00–20:00</span>
-            <span>Нічний ефір · 20:00–10:00</span>
-          </div>
-          <div class="track-program__list" data-program-list>
-            <p class="track-program__message">Завантажуємо програму…</p>
-          </div>
-          <button
-            class="track-program__more"
-            type="button"
-            data-program-more
-            hidden
+        <div class="inner-contact">
+          <article class="inner-card">
+            <h2>Email</h2>
+            <p>Для загальних питань і пропозицій.</p>
+            <a href="mailto:hello@prywoz.fm">hello@prywoz.fm</a>
+          </article>
+          <article class="inner-card">
+            <h2>Телефон</h2>
+            <p>Зв’язок із редакцією в Польщі.</p>
+            <a href="tel:+48799123456">+48 799 123 456</a>
+          </article>
+        </div>
+        <section class="inner-section">
+          <form
+            class="inner-form"
+            action="mailto:hello@prywoz.fm"
+            method="post"
+            enctype="text/plain"
           >
-            Показати більше
-          </button>
-          <p class="track-program__note">
-            Майбутній час є орієнтовним і може змінюватися через джингли або
-            оновлення ефіру.
-          </p>
+            <label>Ім’я<input name="name" required autocomplete="name" /></label
+            ><label
+              >Email<input
+                type="email"
+                name="email"
+                required
+                autocomplete="email" /></label
+            ><label
+              >Повідомлення<textarea name="message" required></textarea></label
+            ><button class="button button--primary" type="submit">
+              Надіслати
+            </button>
+          </form>
         </section>
       </div>
     </main>
