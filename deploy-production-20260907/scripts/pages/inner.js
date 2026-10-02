@@ -467,7 +467,9 @@
     annotate();
     document
       .querySelectorAll("[data-i18n]")
-      .forEach((n) => (n.textContent = t(n.dataset.i18n)));
+      .forEach((n) => {
+        if (C[n.dataset.i18n]) n.textContent = t(n.dataset.i18n);
+      });
     document
       .querySelectorAll("[data-uk]")
       .forEach((n) => (n.textContent = n.dataset[language] || n.dataset.uk));

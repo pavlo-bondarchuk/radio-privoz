@@ -302,6 +302,14 @@
         await response.text(),
         "text/html",
       );
+      const homeScriptSelector = 'script[src*="scripts/pages/home.js"]';
+      const changesPageRuntime =
+        Boolean(doc.querySelector(homeScriptSelector)) !==
+        Boolean(document.querySelector(homeScriptSelector));
+      if (changesPageRuntime) {
+        location.href = target.href;
+        return;
+      }
       const nextMain = doc.querySelector("main");
       const currentMain = document.querySelector("main");
       if (!nextMain || !currentMain)

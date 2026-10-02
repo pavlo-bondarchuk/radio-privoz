@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      (function () {
+        var storedConsent = null;
+        try { storedConsent = localStorage.getItem('prywoz-analytics-consent'); } catch (error) {}
+        gtag('consent', 'default', {
+          analytics_storage: storedConsent === 'accepted' ? 'granted' : 'denied',
+          ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', wait_for_update: 500
+        });
+      }());
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-ML3C4NWZ');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      (() => {
+        let theme = "light";
+        try {
+          theme = localStorage.getItem("prywoz-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        } catch {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+    <meta
+      name="description"
+      content="РАДИО ПРИВОЗ ФМ — українське інтернет-радіо в Польщі: музика, гумор, культура, люди."
+    >
+    <title>РАДИО ПРИВОЗ ФМ — українське радіо в Польщі</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="icon" type="image/png" sizes="512x512" href="./assets/images/favicon-pryvoz.png?v=20260905">
+    <link rel="stylesheet" href="./styles/tokens.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/pages/home.css?v=20260905-state">
+    <link rel="stylesheet" href="./styles/pages/questionnaire.css?v=20260824-card">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/open-fm-redesign.css">
+    <link rel="stylesheet" href="./styles/pages/portal.css?v=20260905-tagline">
+    <link rel="stylesheet" href="./styles/pages/inner.css?v=20260905-radio">
+    <link rel="stylesheet" href="./styles/cookie-consent.css?v=20260907-volume-theme">
+  </head>
+  <body class="page">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ML3C4NWZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header class="site-header">
+      <div class="container site-header__inner portal-header">
+        <a class="logo" href="./" aria-label="На головну РАДИО ПРИВОЗ ФМ">
+          <img class="logo__main" src="./assets/images/radio-pryvoz-fm-logo.png" alt="РАДИО ПРИВОЗ ФМ" width="1312" height="1199">
+          <span class="logo__tagline" data-i18n="brandTagline">Перше українське<br>радіо в Польщі</span>
+        </a>
+
+        <div class="portal-local-time" aria-live="off" aria-label="Локальний час у Лодзі">
+          <span class="portal-local-time__icon" aria-hidden="true"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#clock"></use></svg></span>
+          <div>
+            <strong><span data-local-time-city>Лодзь</span> · <time data-local-time>--:--</time></strong>
+            <span data-local-date>Локальний час</span>
+          </div>
+        </div>
+
+        <button class="header-radio" type="button" data-radio-toggle data-state="idle" aria-label="Увімкнути ефір" aria-pressed="false">
+          <span class="header-radio__dot" aria-hidden="true"></span>
+          <span class="header-radio__copy"><strong data-radio-status>Радіо вимкнено</strong><span data-radio-track>РАДИО ПРИВОЗ ФМ</span></span>
+          <svg class="icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#play"></use></svg>
+        </button>
+
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Увімкнути темну тему" aria-pressed="false">
+          <svg class="icon theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#sun"></use></svg>
+          <svg class="icon theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#moon"></use></svg>
+        </button>
+
+        <div class="language-switcher" aria-label="Вибір мови">
+          <button class="language-switcher__item language-switcher__item--active" type="button" data-language="uk" aria-current="true">UA</button>
+          <button class="language-switcher__item" type="button" data-language="pl">PL</button>
+          <button class="language-switcher__item" type="button" data-language="ru">RU</button>
+        </div>
+
+        <button
+          class="site-header__menu-toggle"
+          type="button"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          aria-label="Відкрити меню"
+        >
+          <svg class="icon site-header__menu-icon site-header__menu-icon--open" aria-hidden="true">
+            <use href="./assets/icons/lucide-sprite.svg#menu"></use>
+          </svg>
+          <svg class="icon site-header__menu-icon site-header__menu-icon--close" aria-hidden="true">
+            <use href="./assets/icons/lucide-sprite.svg#x"></use>
+          </svg>
+        </button>
+
+      </div>
+
+      <div class="site-header__panel" id="mobile-menu">
+        <div class="container portal-nav-row">
+          <nav class="main-nav" aria-label="Основна навігація">
+            <a class="main-nav__link main-nav__link--active" href="./index.html#top" data-i18n="navHome">Головна</a>
+            <a class="main-nav__link" href="./listen.html" data-i18n="navListen">Ефір</a>
+            <a class="main-nav__link" href="./news.html" data-i18n="navNews">Новини</a>
+            <a class="main-nav__link" href="./services.html">Послуги в Лодзі</a>
+            <a class="main-nav__link" href="./business.html">Бізнес</a>
+            <a class="main-nav__link" href="./programs.html">Програми</a>
+            <a class="main-nav__link" href="./about.html" data-i18n="navAbout">Про нас</a>
+            <a class="main-nav__link" href="./contacts.html" data-i18n="navContacts">Контакти</a>
+            <a class="main-nav__link" href="./index.html#card" data-i18n="navCard">Картка</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <audio data-persistent-radio preload="none"></audio>
+
+    <main>
+      <section class="portal-live" id="top" aria-labelledby="hero-title">
+        <div class="container">
+          <h1 class="visually-hidden" id="hero-title">РАДИО ПРИВОЗ ФМ — український портал і радіо в Польщі</h1>
+            <div class="live-player" id="live">
+              <div class="live-player__record live-player__record--vinyl" aria-hidden="true">
+                <img
+                  class="live-player__record-image"
+                  src="./assets/images/home/player-vinyl.png"
+                  alt=""
+                  width="1254"
+                  height="1254"
+                >
+              </div>
+
+              <div class="live-player__meta" aria-live="polite">
+                <span class="live-player__label" data-i18n="nowOnAir">Зараз в ефірі</span>
+                <strong class="live-player__track">РАДИО ПРИВОЗ ФМ</strong>
+                <span class="live-player__host">Денний ефір · 10:00–20:00</span>
+                <span class="live-player__badge">On air</span>
+              </div>
+
+              <div class="live-player__controls">
+                <button class="live-player__play" type="button" aria-label="Відтворити ефір">
+                  <svg class="icon live-player__play-icon" aria-hidden="true">
+                    <use href="./assets/icons/lucide-sprite.svg#play"></use>
+                  </svg>
+                </button>
+                <div class="live-player__volume-control">
+                  <button
+                    class="live-player__volume"
+                    type="button"
+                    aria-label="Налаштувати гучність"
+                    aria-controls="live-volume-panel"
+                    aria-expanded="false"
+                  >
+                    <svg class="icon live-player__volume-icon" aria-hidden="true">
+                      <use href="./assets/icons/lucide-sprite.svg#volume-2"></use>
+                    </svg>
+                  </button>
+                  <div class="live-player__volume-panel" id="live-volume-panel" hidden>
+                    <input
+                      class="live-player__volume-range"
+                      type="range"
+                      min="0"
+                      max="100"
+                      step="1"
+                      value="100"
+                      aria-label="Гучність"
+                    >
+                    <output class="live-player__volume-value">100%</output>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </section>
+
+      <section class="portal-utilities" aria-label="Щоденна інформація">
+        <div class="container portal-utilities__grid">
+          <article class="portal-utility portal-utility--weather">
+            <span class="portal-utility__icon"><svg class="icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#globe"></use></svg></span>
+            <div><strong data-weather-title>Лодзь · +18°</strong><span data-weather-meta>Мінлива хмарність</span></div>
+          </article>
+          <article class="portal-utility portal-utility--currency">
+            <span class="portal-utility__icon"><svg class="icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#credit-card"></use></svg></span>
+            <div><strong data-currency-title>UAH 0,091 PLN</strong><span>Курс NBP</span></div>
+          </article>
+          <article class="portal-utility portal-utility--air">
+            <span class="portal-utility__icon"><svg class="icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#radio-tower"></use></svg></span>
+            <div><strong data-air-title>Якість повітря</strong><span data-air-meta>Оновлюємо дані</span></div>
+          </article>
+          <a class="portal-utility portal-utility--warning" href="https://meteo.imgw.pl/" target="_blank" rel="noopener">
+            <span class="portal-utility__icon"><svg class="icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#clock"></use></svg></span>
+            <div><strong>Попередження</strong><span>Перевірити на IMGW</span></div>
+          </a>
+        </div>
+      </section>
+
+      <section class="portal-content" id="news" aria-labelledby="news-title">
+        <div class="container portal-content__grid">
+          <div class="portal-news">
+            <div class="portal-section-head">
+              <div>
+                <p class="portal-kicker">Інформаційна стрічка</p>
+                <h2 id="news-title">Головні новини</h2>
+              </div>
+              <span class="portal-section-head__live"><span></span> Оновлюється автоматично</span>
+            </div>
+
+            <div class="news-filter" role="group" aria-label="Категорії новин" data-news-filter>
+              <button class="news-filter__button news-filter__button--active" type="button" data-news-category="all" data-i18n="newsCategoryAll">Усі</button>
+              <button class="news-filter__button" type="button" data-news-category="poland">Польща</button>
+              <button class="news-filter__button" type="button" data-news-category="ukraine">Україна</button>
+              <button class="news-filter__button" type="button" data-news-category="politics" data-i18n="newsCategoryPolitics">Політика</button>
+              <button class="news-filter__button" type="button" data-news-category="society" data-i18n="newsCategorySociety">Суспільство</button>
+              <button class="news-filter__button" type="button" data-news-category="culture" data-i18n="newsCategoryCulture">Культура</button>
+              <button class="news-filter__button" type="button" data-news-category="entertainment" data-i18n="newsCategoryEntertainment">Розваги</button>
+              <button class="news-filter__button" type="button" data-news-category="sport" data-i18n="newsCategorySport">Спорт</button>
+            </div>
+
+            <article class="portal-featured-news" data-news-feature aria-live="polite">
+              <div class="portal-featured-news__copy">
+                <span class="news-card__tag">Україна</span>
+                <h3>Завантажуємо головні новини</h3>
+                <p>Актуальні матеріали з українських та польських джерел з короткими відривками й посиланнями на оригінал.</p>
+              </div>
+              <div class="portal-featured-news__visual" aria-hidden="true"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#newspaper"></use></svg></div>
+            </article>
+
+            <div class="portal-news-list" data-news-list aria-live="polite"></div>
+            <button class="portal-news-expand" type="button" data-news-expand aria-expanded="false">
+              <span>Більше новин</span>
+              <span aria-hidden="true">→</span>
+            </button>
+            <div class="portal-news-loader" data-news-loader>
+              <span class="portal-news-loader__spinner" aria-hidden="true"></span>
+              <span data-news-loader-text>Прокрутіть нижче, щоб завантажити більше</span>
+            </div>
+            <div class="portal-news-sentinel" data-news-sentinel aria-hidden="true"></div>
+          </div>
+
+          <aside class="portal-sidebar" aria-label="Корисна інформація">
+            <section class="portal-side-block" id="lodz-services">
+              <div class="portal-side-head"><h2>Послуги в Лодзі</h2><a href="./services.html">Усі →</a></div>
+              <div class="portal-service-grid" data-service-list>
+                <a href="https://uml.lodz.pl/" target="_blank" rel="noopener"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#file-text"></use></svg><span>Міські послуги</span></a>
+                <a href="https://mpk.lodz.pl/rozklady/linie.jsp" target="_blank" rel="noopener"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#car"></use></svg><span>Розклад MPK</span></a>
+                <a href="https://www.migawka.lodz.pl/" target="_blank" rel="noopener"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#credit-card"></use></svg><span>Картка MIGAWKA</span></a>
+                <a href="https://lodz.pl/" target="_blank" rel="noopener"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#calendar-days"></use></svg><span>Події міста</span></a>
+                <a href="https://www.nfz.gov.pl/dla-pacjenta/dla-pacjenta-z-ukrainy/" target="_blank" rel="noopener"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#heart"></use></svg><span>Медицина NFZ</span></a>
+                <a href="https://pracawpolsce.gov.pl/index.html" target="_blank" rel="noopener"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#users"></use></svg><span>Робота в Польщі</span></a>
+              </div>
+            </section>
+
+            <section class="portal-side-block">
+              <div class="portal-side-head"><h2>Афіша</h2><a href="https://lodz.pl/artykuly/kalendarz-imprez/" target="_blank" rel="noopener">Усі →</a></div>
+              <div class="portal-events">
+                <a href="https://lodz.pl/artykuly/kalendarz-imprez/" target="_blank" rel="noopener"><time>Сьогодні · Лодзь</time><strong>Події, концерти та міські зустрічі</strong></a>
+                <a href="https://uml.lodz.pl/kalendarz-wydarzen/" target="_blank" rel="noopener"><time>Цього тижня</time><strong>Календар подій міста</strong></a>
+                <a href="https://lodz.travel/" target="_blank" rel="noopener"><time>На вихідні</time><strong>Куди піти та що побачити</strong></a>
+              </div>
+            </section>
+
+            <section class="portal-side-block">
+              <div class="portal-side-head"><h2>Популярні сервіси</h2></div>
+              <div class="portal-quick-links" data-service-list>
+                <a href="https://info.mobywatel.gov.pl/" target="_blank" rel="noopener">mObywatel</a>
+                <a href="https://inpost.pl/" target="_blank" rel="noopener">InPost</a>
+                <a href="https://www.olx.pl/lodz/" target="_blank" rel="noopener">OLX Łódź</a>
+                <a href="https://jakdojade.pl/lodz/trasa/" target="_blank" rel="noopener">Jakdojade</a>
+                <a href="https://www.gov.pl/web/udsc/jezyk-ukrainski-ua" target="_blank" rel="noopener">Документи UA</a>
+                <a href="https://www.gov.pl/web/nieodplatna-pomoc/porady-prawne-z-zakresu-prawa-cudzoziemcow-oraz-porady-prawne-w-jezykach-obcych" target="_blank" rel="noopener">Правова допомога</a>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      <section class="portal-directory" id="business" aria-labelledby="business-title">
+        <div class="container">
+          <div class="portal-section-head portal-section-head--compact">
+            <div><p class="portal-kicker">Перевірені контакти</p><h2 id="business-title">Український бізнес у Польщі</h2></div>
+            <a class="portal-section-link" href="./business.html">Усі компанії →</a>
+          </div>
+          <div class="portal-business-grid" data-service-list>
+            <a class="portal-business portal-business--pink" href="https://www.google.com/maps/search/%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D0%B0+%D1%81%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BE%D0%BB%D0%BE%D0%B3%D1%96%D1%8F+%D0%9B%D0%BE%D0%B4%D0%B7%D1%8C" target="_blank" rel="noopener"><strong>Стоматологія</strong><span>Фахівці у Лодзі</span><small>Переглянути →</small></a>
+            <a class="portal-business portal-business--green" href="https://www.google.com/maps/search/%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D0%B8%D0%B9+%D0%B1%D1%83%D1%85%D0%B3%D0%B0%D0%BB%D1%82%D0%B5%D1%80+%D0%9B%D0%BE%D0%B4%D0%B7%D1%8C" target="_blank" rel="noopener"><strong>Бухгалтерія</strong><span>Допомога ФОП і компаніям</span><small>Переглянути →</small></a>
+            <a class="portal-business portal-business--yellow" href="https://www.olx.pl/nieruchomosci/lodz/" target="_blank" rel="noopener"><strong>Нерухомість</strong><span>Оренда та купівля житла</span><small>Переглянути →</small></a>
+            <a class="portal-business portal-business--blue" href="https://www.google.com/maps/search/%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D0%B8%D0%B9+%D0%BA%D0%BE%D1%81%D0%BC%D0%B5%D1%82%D0%BE%D0%BB%D0%BE%D0%B3+%D0%9B%D0%BE%D0%B4%D0%B7%D1%8C" target="_blank" rel="noopener"><strong>Краса</strong><span>Майстри поруч із вами</span><small>Переглянути →</small></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="portal-programs" id="programs" aria-labelledby="programs-title">
+        <div class="container">
+          <div class="portal-section-head portal-section-head--compact">
+            <div><p class="portal-kicker">Власні матеріали</p><h2 id="programs-title">Матеріали PRYWOZ і програми радіо</h2></div>
+            <a class="portal-section-link" href="./programs.html">Усі програми →</a>
+          </div>
+          <div class="portal-program-grid">
+            <article><span class="portal-program-icon"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#radio"></use></svg></span><div><strong>Українська хвиля</strong><p>Щоденна програма про життя громади</p></div></article>
+            <article><span class="portal-program-icon"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#mic-2"></use></svg></span><div><strong>Інтерв’ю громади</strong><p>Люди, ідеї та український бізнес</p></div></article>
+            <article><span class="portal-program-icon"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#file-text"></use></svg></span><div><strong>Корисно знати</strong><p>Пояснення правил і сервісів Польщі</p></div></article>
+            <article><span class="portal-program-icon"><svg class="icon"><use href="./assets/icons/lucide-sprite.svg#clock"></use></svg></span><div><strong>Розклад ефіру</strong><p>Денні програми та нічний ефір</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section" id="about" aria-labelledby="about-title">
+        <div class="container">
+          <div class="about-section__intro">
+            <h2 class="section-title" id="about-title" data-i18n="aboutProject">Про проєкт</h2>
+            <p data-i18n="aboutText">
+              РАДИО ПРИВОЗ ФМ — створено україномовними для українців у Польщі та по всьому світу.
+              Ми об'єднуємо людей через музику, гумор і живе слово. Наш ефір — це про дім,
+              традиції та сучасне життя української громади за кордоном.
+            </p>
+          </div>
+
+          <ul class="feature-list" aria-label="Переваги РАДИО ПРИВОЗ ФМ">
+            <li class="feature-list__item">
+              <svg class="icon feature-list__icon" aria-hidden="true">
+                <use href="./assets/icons/lucide-sprite.svg#radio-receiver"></use>
+              </svg>
+              <div class="feature-list__text">
+                <h3 class="feature-list__title" data-i18n="featureLiveTitle">Живий ефір 24/7</h3>
+                <p class="feature-list__description" data-i18n="featureLiveText">Улюблена музика, авторські програми та цікаві гості щодня.</p>
+              </div>
+            </li>
+            <li class="feature-list__item">
+              <svg class="icon feature-list__icon" aria-hidden="true">
+                <use href="./assets/icons/lucide-sprite.svg#mic-2"></use>
+              </svg>
+              <div class="feature-list__text">
+                <h3 class="feature-list__title" data-i18n="featureCultureTitle">Своє. Українське</h3>
+                <p class="feature-list__description" data-i18n="featureCultureText">Підтримуємо українську культуру, мову та традиції у Польщі та світі.</p>
+              </div>
+            </li>
+            <li class="feature-list__item">
+              <svg class="icon feature-list__icon" aria-hidden="true">
+                <use href="./assets/icons/lucide-sprite.svg#users"></use>
+              </svg>
+              <div class="feature-list__text">
+                <h3 class="feature-list__title" data-i18n="featureCommunityTitle">Для громади</h3>
+                <p class="feature-list__description" data-i18n="featureCommunityText">Висвітлюємо ініціативи та важливі новини для українців.</p>
+              </div>
+            </li>
+            <li class="feature-list__item">
+              <svg class="icon feature-list__icon" aria-hidden="true">
+                <use href="./assets/icons/lucide-sprite.svg#headphones"></use>
+              </svg>
+              <div class="feature-list__text">
+                <h3 class="feature-list__title" data-i18n="featureEverywhereTitle">Де б ви не були</h3>
+                <p class="feature-list__description" data-i18n="featureEverywhereText">Слухайте нас на сайті та в соцмережах — ми поруч!</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="card-section" id="card" aria-labelledby="card-title">
+        <div class="container">
+          <div class="card-section__intro">
+            <div>
+              <p class="card-section__eyebrow" data-i18n="cardEyebrow">Картка клієнта</p>
+              <h2 class="section-title" id="card-title" data-i18n="cardTitle">Зареєструйте картку Привоз</h2>
+              <p class="card-section__lead" data-i18n="cardLead">Заповніть анкету для активації картки та зворотного зв'язку.</p>
+            </div>
+            <div class="card-section__details">
+              <p><strong data-i18n="cardAddressLabel">Знижки діють за адресою:</strong> <span data-i18n="cardAddress">93-120 Łódź, ul. Przybyszewskiego 176/178.</span></p>
+              <p data-i18n="cardActivation">Картка активується протягом 48 годин після перевірки анкети.</p>
+              <p data-i18n="cardValidity">Термін дії картки — 1 рік із моменту реєстрації.</p>
+            </div>
+          </div>
+
+          <div class="card-section__actions">
+            <button class="button button--secondary rules-button" type="button" aria-haspopup="dialog" aria-controls="rules-modal">
+              <svg class="icon button__inline-icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#file-text"></use></svg>
+              <span data-i18n="rulesButton">Правила</span>
+            </button>
+            <button class="button button--primary registration-button" type="button" aria-expanded="false" aria-controls="anketa">
+              <svg class="icon button__inline-icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#credit-card"></use></svg>
+              <span data-i18n="registerCardButton">Зареєструвати картку</span>
+            </button>
+          </div>
+
+          <section class="questionnaire" id="anketa" hidden aria-labelledby="questionnaire-title">
+            <header class="questionnaire__header">
+              <p class="card-section__eyebrow" data-i18n="questionnaireEyebrow">Активація картки</p>
+              <h2 class="questionnaire__title" id="questionnaire-title" data-i18n="questionnaireTitle">Анкета</h2>
+              <p class="questionnaire__subtitle" data-i18n="questionnaireSubtitle">Заповніть дані для активації картки та зворотного зв'язку.</p>
+            </header>
+
+            <form class="questionnaire__form" id="questionnaire-form" data-endpoint="https://prywoz.fm/submit.php" novalidate>
+              <div class="form-grid">
+                <label class="form-field"><span class="form-field__label">1. Имя</span><input type="text" name="firstName" placeholder="Введите имя" autocomplete="given-name" minlength="2" maxlength="60" required><span class="form-field__error"></span></label>
+                <label class="form-field"><span class="form-field__label">2. Фамилия</span><input type="text" name="lastName" placeholder="Введите фамилию" autocomplete="family-name" minlength="2" maxlength="60" required><span class="form-field__error"></span></label>
+                <label class="form-field form-field--wide"><span class="form-field__label">3. Email</span><input type="email" name="email" placeholder="example@mail.com" autocomplete="email" maxlength="120" required><span class="form-field__error"></span></label>
+                <label class="form-field"><span class="form-field__label">4. Дата рождения</span><input type="date" name="birthDate" autocomplete="bday" required><span class="form-field__error"></span></label>
+                <label class="form-field"><span class="form-field__label">5. Семья</span><select name="familySize" required><option value="">Выберите вариант</option><option value="1–2 человека">1–2 человека</option><option value="3–4 человека">3–4 человека</option><option value="5 и более">5 и более</option></select><span class="form-field__error"></span></label>
+                <label class="form-field"><span class="form-field__label">6. Откуда приехали в Польшу</span><select name="originCountry" required><option value="">Выберите страну</option><option value="Украина">Украина</option><option value="Беларусь">Беларусь</option><option value="Молдова">Молдова</option><option value="Грузия">Грузия</option><option value="Я из Польши">Я из Польши</option><option value="Армения">Армения</option><option value="Казахстан">Казахстан</option><option value="Другая страна">Другая страна</option></select><span class="form-field__error"></span></label>
+                <label class="form-field"><span class="form-field__label">7. Область</span><select name="voivodeship" required><option value="">Сначала выберите страну</option></select><span class="form-field__error"></span></label>
+                <fieldset class="form-field form-field--locality"><legend class="form-field__label">8. Город / село</legend><div class="segmented-control"><label><input type="radio" name="localityType" value="Город" checked><span>Город</span></label><label><input type="radio" name="localityType" value="Село"><span>Село</span></label></div><input type="text" name="locality" placeholder="Введите город или село" autocomplete="address-level2" minlength="2" maxlength="100" required><span class="form-field__error"></span></fieldset>
+                <label class="form-field"><span class="form-field__label">9. Где проживаете</span><select name="residenceType" required><option value="">Выберите вариант</option><option value="ЛОДЗЬ — БАЛУТЫ">ЛОДЗЬ — БАЛУТЫ</option><option value="ЛОДЗЬ — ВИДЗЕВ">ЛОДЗЬ — ВИДЗЕВ</option><option value="ЛОДЗЬ — ГУРНА">ЛОДЗЬ — ГУРНА</option><option value="ЛОДЗЬ — ГУРНЯК">ЛОДЗЬ — ГУРНЯК</option><option value="ЛОДЗЬ — ОЛЕХОВ">ЛОДЗЬ — ОЛЕХОВ</option><option value="ЛОДЗЬ — РЕТКИНЯ">ЛОДЗЬ — РЕТКИНЯ</option><option value="ЛОДЗЬ — РУДА">ЛОДЗЬ — РУДА</option><option value="ЛОДЗЬ — СТАРЫЕ БАЛУТЫ">ЛОДЗЬ — СТАРЫЕ БАЛУТЫ</option><option value="ЛОДЗЬ — ФАБРИЧНА">ЛОДЗЬ — ФАБРИЧНА</option><option value="ЛОДЗЬ — ЦЕНТР">ЛОДЗЬ — ЦЕНТР</option><option value="ЛОДЗЬ — ЮЛЯНОВ">ЛОДЗЬ — ЮЛЯНОВ</option><option value="АЛЕКСАНДРОВ">АЛЕКСАНДРОВ</option><option value="АНДРЕСПОЛЬ">АНДРЕСПОЛЬ</option><option value="ЖГОВ">ЖГОВ</option><option value="ЗГЕЖ">ЗГЕЖ</option><option value="КОНСТАНТИНОВ ЛУДСКИЙ">КОНСТАНТИНОВ ЛУДСКИЙ</option><option value="ПАБЬЯНИЦЕ">ПАБЬЯНИЦЕ</option><option value="ПЕТРКУВ ТРЫБУНАЛЬСКИЙ">ПЕТРКУВ ТРЫБУНАЛЬСКИЙ</option><option value="СТРЫКУВ">СТРЫКУВ</option><option value="ТУШИН">ТУШИН</option><option value="ДРУГОЕ">ДРУГОЕ</option></select><span class="form-field__error"></span></label>
+                <label class="form-field"><span class="form-field__label">10. Где работаете</span><select name="employment" required><option value="">Выберите вариант</option><option value="БЬЮТИ СФЕРА">БЬЮТИ СФЕРА</option><option value="ВОДИТЕЛЬ ГРУЗОВИКА">ВОДИТЕЛЬ ГРУЗОВИКА</option><option value="СТРОЙКА">СТРОЙКА</option><option value="ГАСТРОНОМИЯ">ГАСТРОНОМИЯ</option><option value="ВРАЧ">ВРАЧ</option><option value="КУРЬЕР">КУРЬЕР</option><option value="МЕЖДУНАРОДНАЯ КОРПОРАЦИЯ">МЕЖДУНАРОДНАЯ КОРПОРАЦИЯ</option><option value="ПРОИЗВОДСТВО">ПРОИЗВОДСТВО</option><option value="СВОЙ БИЗНЕС">СВОЙ БИЗНЕС</option><option value="СКЛАДЫ">СКЛАДЫ</option><option value="СТО">СТО</option><option value="УЧИТЕЛЬ">УЧИТЕЛЬ</option><option value="УЧЕНИК / СТУДЕНТ">УЧЕНИК / СТУДЕНТ</option><option value="ТАКСИ">ТАКСИ</option><option value="IT">IT</option><option value="ДРУГОЕ">ДРУГОЕ</option></select><span class="form-field__error"></span></label>
+                <label class="form-field"><span class="form-field__label">11. Номер телефона</span><input type="tel" name="phone" placeholder="+48123456789" autocomplete="tel" inputmode="tel" pattern="^\+?[0-9\s()\-]{9,20}$" title="Введите корректный номер телефона" required><span class="form-field__error"></span></label>
+                <label class="form-field"><span class="form-field__label">12. Номер карты</span><input type="text" name="cardNumber" placeholder="Введите номер карты" inputmode="numeric" pattern="^[0-9]{6,24}$" minlength="6" maxlength="24" title="Введите от 6 до 24 цифр без пробелов" required><span class="form-field__hint">номер, указанный на карте</span><span class="form-field__error"></span></label>
+                <fieldset class="form-field form-field--card-type"><legend class="form-field__label">13. Тип карты</legend><div class="card-type-options"><label class="card-type-option"><input type="radio" name="cardType" value="Карта клиента" required><span>Карта клиента</span></label><label class="card-type-option"><input type="radio" name="cardType" value="Карта Premium"><span>Карта Premium</span></label><label class="card-type-option"><input type="radio" name="cardType" value="Карта Premium+"><span>Карта Premium+</span></label><label class="card-type-option"><input type="radio" name="cardType" value="Карта VIP"><span>Карта VIP</span></label></div><span class="form-field__error"></span></fieldset>
+              </div>
+              <div class="consent-list"><label class="consent"><input type="checkbox" name="personalDataConsent" required><span><strong>*</strong> Согласие на обработку персональных данных</span></label><label class="consent"><input type="checkbox" name="notificationsConsent" required><span><strong>*</strong> Согласие на получение уведомлений от компании PRYWOZ LODZ Sp. z o.o.</span></label></div>
+              <button class="button button--primary questionnaire__submit" type="submit"><svg class="icon button__inline-icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#send"></use></svg><span>Отправить анкету</span></button>
+              <p class="questionnaire__status" role="status" aria-live="polite"></p>
+              <p class="questionnaire__note">После отправки мы свяжемся с вами. Карта будет активна в течение 48 часов.</p>
+            </form>
+          </section>
+
+          <section class="success-card" id="success-card" hidden aria-live="polite">
+            <svg class="icon success-card__icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#circle-check"></use></svg>
+            <div><h2 class="success-card__title">Спасибо!</h2><p>Анкета успешно отправлена. В течение 48 часов карта будет активна.</p></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="contact-strip" aria-labelledby="contact-title">
+        <div class="container contact-strip__grid">
+          <div>
+            <h2 class="section-title" id="contact-title" data-i18n="navContacts">Контакти</h2>
+            <p class="contact-strip__text" data-i18n="contactText">Є новина або пропозиція для ефіру? Напишіть нам, а ми повернемось із відповіддю.</p>
+          </div>
+          <a class="button button--primary" href="mailto:hello@prywoz.fm">
+            <svg class="icon button__inline-icon" aria-hidden="true">
+              <use href="./assets/icons/lucide-sprite.svg#mail"></use>
+            </svg>
+            <span>hello@prywoz.fm</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contacts">
+      <div class="container site-footer__grid">
+        <div class="site-footer__brand">
+          <div class="site-footer__brand-row">
+            <img
+              class="site-footer__logo"
+              src="./assets/images/radio-pryvoz-fm-logo.png"
+              alt="РАДИО ПРИВОЗ ФМ"
+              width="1254"
+              height="1254"
+            >
+            <p class="site-footer__brand-note" data-i18n="footerBrand">Перше українське<br>радіо в Польщі</p>
+          </div>
+          <p class="site-footer__about" data-i18n="footerAbout">
+            Музика, гумор, культура та люди, що об'єднують.
+          </p>
+          <ul class="socials" aria-label="Соціальні мережі">
+            <li class="socials__item">
+              <a class="socials__link" href="#facebook" aria-label="Facebook">
+                <svg class="icon" aria-hidden="true">
+                  <use href="./assets/icons/lucide-sprite.svg#messages-square"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="socials__item">
+              <a class="socials__link" href="#instagram" aria-label="Instagram">
+                <svg class="icon" aria-hidden="true">
+                  <use href="./assets/icons/lucide-sprite.svg#camera"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="socials__item">
+              <a class="socials__link" href="#youtube" aria-label="YouTube">
+                <svg class="icon" aria-hidden="true">
+                  <use href="./assets/icons/lucide-sprite.svg#video"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="socials__item">
+              <a class="socials__link" href="#telegram" aria-label="Telegram">
+                <svg class="icon" aria-hidden="true">
+                  <use href="./assets/icons/lucide-sprite.svg#send"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="socials__item">
+              <a class="socials__link" href="#tiktok" aria-label="TikTok">
+                <svg class="icon" aria-hidden="true">
+                  <use href="./assets/icons/lucide-sprite.svg#music-2"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-contacts">
+          <h2 class="footer-contacts__title" data-i18n="navContacts">Контакти</h2>
+          <a class="footer-contacts__link" href="mailto:hello@prywoz.fm">
+            <svg class="icon" aria-hidden="true">
+              <use href="./assets/icons/lucide-sprite.svg#mail"></use>
+            </svg>
+            <span>hello@prywoz.fm</span>
+          </a>
+          <a class="footer-contacts__link" href="tel:+48799123456">
+            <svg class="icon" aria-hidden="true">
+              <use href="./assets/icons/lucide-sprite.svg#phone"></use>
+            </svg>
+            <span>+48 799 123 456</span>
+          </a>
+          <span class="footer-contacts__link">
+            <svg class="icon" aria-hidden="true">
+              <use href="./assets/icons/lucide-sprite.svg#map-pin"></use>
+            </svg>
+            <span data-i18n="footerCountry">Польща</span>
+          </span>
+          <a class="button button--contact" href="mailto:hello@prywoz.fm">
+            <svg class="icon button__mail" aria-hidden="true">
+              <use href="./assets/icons/lucide-sprite.svg#mail"></use>
+            </svg>
+            <span data-i18n="writeUs">Написати нам</span>
+          </a>
+        </div>
+
+        <aside class="footer-card" aria-label="Ефір 24/7">
+          <strong class="footer-card__label" data-i18n="footerCardLabel">Радіо 24/7</strong>
+          <span class="footer-card__date" data-i18n="footerCardDate">Слухайте наживо</span>
+          <p class="footer-card__text" data-i18n="footerCardText">Денний ефір 10:00–20:00 · нічний 20:00–10:00</p>
+          <svg class="icon footer-card__tower" aria-hidden="true">
+            <use href="./assets/icons/lucide-sprite.svg#radio-tower"></use>
+          </svg>
+        </aside>
+      </div>
+
+      <div class="container site-footer__bottom">
+        <p data-i18n="copyright">© 2026 РАДИО ПРИВОЗ ФМ. Усі права захищено.</p>
+        <p class="site-footer__made">
+          <span data-i18n="madeFor">Створено з любов'ю для наших слухачів</span>
+          <svg class="icon" aria-hidden="true">
+            <use href="./assets/icons/lucide-sprite.svg#heart"></use>
+          </svg>
+        </p>
+      </div>
+    </footer>
+
+    <div class="rules-modal" id="rules-modal" hidden>
+      <div class="rules-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="rules-modal-title">
+        <header class="rules-modal__header">
+          <h2 class="rules-modal__title" id="rules-modal-title" data-i18n="rulesTitle">Правила картки</h2>
+          <button class="rules-modal__close" type="button" aria-label="Закрити правила"><svg class="icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#x"></use></svg></button>
+        </header>
+        <div class="rules-modal__toolbar" aria-label="Керування масштабом">
+          <button type="button" data-rules-action="zoom-out" aria-label="Зменшити"><svg class="icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#zoom-out"></use></svg></button>
+          <button class="rules-modal__zoom-value" type="button" data-rules-action="reset">100%</button>
+          <button type="button" data-rules-action="zoom-in" aria-label="Збільшити"><svg class="icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#zoom-in"></use></svg></button>
+          <a class="rules-modal__download" href="./assets/images/card-rules.webp" download="radio-prywoz-card-rules.webp"><svg class="icon" aria-hidden="true"><use href="./assets/icons/lucide-sprite.svg#download"></use></svg><span data-i18n="saveRules">Зберегти правила</span></a>
+        </div>
+        <div class="rules-modal__viewport">
+          <img class="rules-modal__poster" src="./assets/images/card-rules.webp" alt="Правила використання картки Привоз" width="4961" height="7016">
+        </div>
+      </div>
+    </div>
+
+    <section class="cookie-consent" data-cookie-consent hidden aria-label="Налаштування аналітичних cookie"><div class="cookie-consent__copy"><strong>Аналітичні cookie</strong><p>Допоможіть нам зрозуміти, як відвідувачі користуються сайтом. Рекламні cookie не використовуються.</p></div><div class="cookie-consent__actions"><button type="button" data-consent-choice="declined">Відхилити</button><button type="button" data-consent-choice="accepted">Прийняти</button></div></section>
+
+    <script src="./scripts/radio-persistence.js?v=20261002-home-runtime"></script>
+    <script src="./scripts/pages/home.js?v=20260905-tagline"></script>
+    <script src="./scripts/pages/inner.js?v=20261002-key-guard"></script>
+    <script src="./scripts/pages/questionnaire.js?v=20260824-card"></script>
+    <script src="./scripts/cookie-consent.js?v=20260907"></script>
+    <script src="./scripts/analytics-events.js?v=20260907"></script>
+  </body>
+</html>
