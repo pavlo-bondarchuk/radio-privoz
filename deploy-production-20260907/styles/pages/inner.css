@@ -290,6 +290,12 @@ html[data-theme="dark"] .inner-load {
   background: var(--ds-color-surface);
   border-color: var(--ds-color-border);
 }
+html[data-theme="dark"] .inner-filter button.is-active,
+html[data-theme="dark"] .inner-filter button[aria-pressed="true"] {
+  color: #fff;
+  background: var(--ds-color-accent);
+  border-color: var(--ds-color-accent);
+}
 @media (max-width: 900px) {
   .inner-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
