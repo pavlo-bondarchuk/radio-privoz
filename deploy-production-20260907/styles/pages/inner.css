@@ -1,6 +1,9 @@
 .inner-main {
   padding: 48px 0 72px;
 }
+.page .site-footer__grid {
+  grid-template-columns: minmax(260px, 1fr) 240px minmax(210px, 240px);
+}
 .inner-hero {
   display: grid;
   gap: 12px;
@@ -302,6 +305,13 @@ html[data-theme="dark"] .inner-filter button[aria-pressed="true"] {
   }
 }
 @media (max-width: 680px) {
+  .page .site-footer__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .page .site-footer__bottom {
+    flex-direction: column;
+  }
   .inner-main {
     padding-top: 30px;
   }

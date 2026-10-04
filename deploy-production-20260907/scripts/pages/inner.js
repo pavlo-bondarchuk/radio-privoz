@@ -34,6 +34,24 @@
       "Ukraińskie radio i przydatny portal w Polsce.",
       "Украинское радио и полезный портал в Польше.",
     ],
+    footerCountry: ["Польща", "Polska", "Польша"],
+    writeUs: ["Написати нам", "Napisz do nas", "Написать нам"],
+    footerCardLabel: ["Радіо 24/7", "Radio 24/7", "Радио 24/7"],
+    footerCardDate: [
+      "Слухайте наживо",
+      "Słuchaj na żywo",
+      "Слушайте в прямом эфире",
+    ],
+    footerCardText: [
+      "Денний ефір 10:00–20:00 · нічний 20:00–10:00",
+      "Program dzienny 10:00–20:00 · nocny 20:00–10:00",
+      "Дневной эфир 10:00–20:00 · ночной 20:00–10:00",
+    ],
+    madeFor: [
+      "Створено з любов'ю для наших слухачів",
+      "Stworzone z miłością dla naszych słuchaczy",
+      "Создано с любовью для наших слушателей",
+    ],
     copyright: [
       "© 2026 РАДИО ПРИВОЗ ФМ. Усі права захищено.",
       "© 2026 РАДИО ПРИВОЗ ФМ. Wszelkie prawa zastrzeżone.",
@@ -422,7 +440,7 @@
   if (!document.querySelector(".site-footer"))
     document.body.insertAdjacentHTML(
       "beforeend",
-      `<footer class="site-footer"><div class="container site-footer__grid"><div><img class="site-footer__logo" src="./assets/images/radio-pryvoz-fm-logo.png" alt="РАДИО ПРИВОЗ ФМ"><p data-i18n="footerAbout"></p></div><div class="footer-contacts"><h2 data-i18n="contacts"></h2><a href="mailto:hello@prywoz.fm">hello@prywoz.fm</a><a href="tel:+48799123456">+48 799 123 456</a></div><div class="footer-contacts"><h2 data-i18n="information"></h2><a href="./about.html" data-i18n="about"></a><a href="./contacts.html" data-i18n="connection"></a><a href="./privacy.html" data-i18n="privacy"></a></div></div><div class="container site-footer__bottom"><p data-i18n="copyright"></p></div></footer>`,
+      `<footer class="site-footer" id="contacts"><div class="container site-footer__grid"><div class="site-footer__brand"><div class="site-footer__brand-row"><img class="site-footer__logo" src="./assets/images/radio-pryvoz-fm-logo.png" alt="РАДИО ПРИВОЗ ФМ" width="1254" height="1254"><p class="site-footer__brand-note" data-i18n="firstRadio"></p></div><p class="site-footer__about" data-i18n="footerAbout"></p><ul class="socials" aria-label="Social media"><li><a class="socials__link" href="#facebook" aria-label="Facebook"><svg class="icon"><use href="${iconPath}#messages-square"></use></svg></a></li><li><a class="socials__link" href="#instagram" aria-label="Instagram"><svg class="icon"><use href="${iconPath}#camera"></use></svg></a></li><li><a class="socials__link" href="#youtube" aria-label="YouTube"><svg class="icon"><use href="${iconPath}#video"></use></svg></a></li><li><a class="socials__link" href="#telegram" aria-label="Telegram"><svg class="icon"><use href="${iconPath}#send"></use></svg></a></li><li><a class="socials__link" href="#tiktok" aria-label="TikTok"><svg class="icon"><use href="${iconPath}#music-2"></use></svg></a></li></ul></div><div class="footer-contacts"><h2 class="footer-contacts__title" data-i18n="contacts"></h2><a class="footer-contacts__link" href="mailto:hello@prywoz.fm"><svg class="icon"><use href="${iconPath}#mail"></use></svg><span>hello@prywoz.fm</span></a><a class="footer-contacts__link" href="tel:+48799123456"><svg class="icon"><use href="${iconPath}#phone"></use></svg><span>+48 799 123 456</span></a><span class="footer-contacts__link"><svg class="icon"><use href="${iconPath}#map-pin"></use></svg><span data-i18n="footerCountry"></span></span><a class="button button--contact" href="mailto:hello@prywoz.fm"><svg class="icon button__mail"><use href="${iconPath}#mail"></use></svg><span data-i18n="writeUs"></span></a></div><aside class="footer-card"><strong class="footer-card__label" data-i18n="footerCardLabel"></strong><span class="footer-card__date" data-i18n="footerCardDate"></span><p class="footer-card__text" data-i18n="footerCardText"></p><svg class="icon footer-card__tower"><use href="${iconPath}#radio-tower"></use></svg></aside></div><div class="container site-footer__bottom"><p data-i18n="copyright"></p><p class="site-footer__made"><span data-i18n="madeFor"></span><svg class="icon"><use href="${iconPath}#heart"></use></svg></p></div></footer>`,
     );
 
   const annotate = () =>
