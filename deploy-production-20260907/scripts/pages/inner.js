@@ -597,9 +597,20 @@
     const root = document.querySelector("[data-inner-news]");
     if (!root || root.dataset.ready) return;
     root.dataset.ready = "1";
+    const filterButtons = [
+      ...document.querySelectorAll(".inner-filter [data-news-filter]"),
+    ];
     let items = [],
       shown = 9,
       filter = "all";
+    const setActiveFilter = (activeFilter) => {
+      filter = activeFilter;
+      filterButtons.forEach((button) => {
+        const isActive = button.dataset.newsFilter === activeFilter;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+    };
     const draw = () => {
       const list =
         filter === "all"
@@ -646,13 +657,11 @@
         draw();
       })
       .catch(() => (root.textContent = t("newsError")));
-    document.querySelectorAll("[data-news-filter]").forEach((b) =>
-      b.addEventListener("click", () => {
-        filter = b.dataset.newsFilter;
+    setActiveFilter("all");
+    filterButtons.forEach((button) =>
+      button.addEventListener("click", () => {
+        setActiveFilter(button.dataset.newsFilter);
         shown = 9;
-        document
-          .querySelectorAll("[data-news-filter]")
-          .forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
         draw();
       }),
     );

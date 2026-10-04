@@ -227,6 +227,7 @@
   background: var(--ds-color-surface);
   font-weight: 700;
 }
+.inner-filter button.is-active,
 .inner-filter button[aria-pressed="true"] {
   color: #fff;
   border-color: var(--ds-color-accent);

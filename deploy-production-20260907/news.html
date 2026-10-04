@@ -62,7 +62,7 @@
       rel="stylesheet"
       href="./styles/pages/portal.css?v=20260905-tagline"
     />
-    <link rel="stylesheet" href="./styles/pages/inner.css?v=20261002-tracks" />
+    <link rel="stylesheet" href="./styles/pages/inner.css?v=20261004-news-filter" />
     <link
       rel="stylesheet"
       href="./styles/cookie-consent.css?v=20260907-volume-theme"
@@ -101,17 +101,17 @@
           </p>
         </header>
         <div class="inner-filter">
-          <button data-news-filter="all" aria-pressed="true">Усі</button
-          ><button data-news-filter="poland" aria-pressed="false">Польща</button
-          ><button data-news-filter="ukraine" aria-pressed="false">
+          <button class="is-active" type="button" data-news-filter="all" aria-pressed="true">Усі</button
+          ><button type="button" data-news-filter="poland" aria-pressed="false">Польща</button
+          ><button type="button" data-news-filter="ukraine" aria-pressed="false">
             Україна</button
-          ><button data-news-filter="politics" aria-pressed="false">
+          ><button type="button" data-news-filter="politics" aria-pressed="false">
             Політика</button
-          ><button data-news-filter="society" aria-pressed="false">
+          ><button type="button" data-news-filter="society" aria-pressed="false">
             Суспільство</button
-          ><button data-news-filter="culture" aria-pressed="false">
+          ><button type="button" data-news-filter="culture" aria-pressed="false">
             Культура</button
-          ><button data-news-filter="sport" aria-pressed="false">Спорт</button>
+          ><button type="button" data-news-filter="sport" aria-pressed="false">Спорт</button>
         </div>
         <section class="inner-list" data-inner-news aria-live="polite">
           <p>Завантаження…</p>
@@ -122,7 +122,7 @@
       </div>
     </main>
     <script src="./scripts/radio-persistence.js?v=20261002-home-runtime"></script>
-    <script src="./scripts/pages/inner.js?v=20261002-key-guard"></script>
+    <script src="./scripts/pages/inner.js?v=20261004-news-filter"></script>
     <section
       class="cookie-consent"
       data-cookie-consent
