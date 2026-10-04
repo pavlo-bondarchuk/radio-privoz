@@ -600,6 +600,71 @@
     const filterButtons = [
       ...document.querySelectorAll(".inner-filter [data-news-filter]"),
     ];
+    const feedSources = [
+      {
+        name: "Укрінформ",
+        url: "https://www.ukrinform.ua/rss/block-lastnews",
+        region: "ukraine",
+      },
+      {
+        name: "Радіо Свобода",
+        url: "https://www.radiosvoboda.org/api/zrqiteuuir",
+        region: "ukraine",
+      },
+      { name: "UOKiK", url: "https://uokik.gov.pl/feed", region: "poland" },
+      {
+        name: "GUS",
+        url: "https://stat.gov.pl/rss/pl/5438/8.xml",
+        region: "poland",
+      },
+    ];
+    const categoryKeywords = {
+      politics: [
+        "політик", "политик", "вибор", "выбор", "уряд", "парламент", "президент", "minister", "sejm", "senat", "wybor", "rząd",
+      ],
+      sport: [
+        "спорт", "футбол", "баскетбол", "теніс", "олімп", "матч", "чемпіон", "sport", "piłk", "mecz", "liga", "turniej",
+      ],
+      culture: [
+        "культур", "мистец", "театр", "кіно", "літератур", "музей", "вистав", "концерт", "фестиваль", "kultur", "teatr", "film", "muze", "wystaw",
+      ],
+      society: [
+        "суспіль", "громад", "соціаль", "освіт", "здоров", "місто", "społecz", "edukac", "zdrow", "miasto", "mieszkań",
+      ],
+    };
+    const stripHtml = (value = "") => {
+      const holder = document.createElement("div");
+      holder.innerHTML = value;
+      return (holder.textContent || "").replace(/\s+/g, " ").trim();
+    };
+    const detectCategory = (value = "") => {
+      const text = value.toLocaleLowerCase("uk-UA");
+      return (
+        Object.entries(categoryKeywords).find(([, keywords]) =>
+          keywords.some((keyword) => text.includes(keyword)),
+        )?.[0] || "society"
+      );
+    };
+    const fetchFeed = async (source) => {
+      const endpoint = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}`;
+      const response = await fetch(endpoint);
+      if (!response.ok) throw new Error("Feed unavailable");
+      const data = await response.json();
+      if (data.status !== "ok" || !Array.isArray(data.items))
+        throw new Error("Invalid feed");
+      return data.items.slice(0, 12).map((item) => ({
+        id: `${source.name}-${item.guid || item.link}`,
+        title: stripHtml(item.title) || source.name,
+        excerpt: stripHtml(item.description || item.content).slice(0, 220),
+        source: source.name,
+        originalUrl: item.link,
+        publishedAt: item.pubDate || new Date().toISOString(),
+        category: detectCategory(
+          `${item.title || ""} ${item.description || item.content || ""}`,
+        ),
+        region: source.region,
+      }));
+    };
     let items = [],
       shown = 9,
       filter = "all";
@@ -618,11 +683,12 @@
           : items.filter(
               (x) =>
                 x.category === filter ||
-                (/uokik|gus|gov\.pl|\.pl\//i.test(
-                  `${x.source} ${x.originalUrl}`,
-                )
-                  ? "poland"
-                  : "ukraine") === filter,
+                (x.region ||
+                  (/uokik|gus|gov\.pl|\.pl\//i.test(
+                    `${x.source} ${x.originalUrl}`,
+                  )
+                    ? "poland"
+                    : "ukraine")) === filter,
             );
       root.replaceChildren();
       list.slice(0, shown).forEach((x) => {
@@ -647,7 +713,7 @@
       const more = document.querySelector("[data-news-more]");
       if (more) more.hidden = shown >= list.length;
     };
-    fetch("./assets/data/news-cache.json")
+    fetch("./assets/data/news-cache.json", { cache: "no-store" })
       .then((r) => {
         if (!r.ok) throw 0;
         return r.json();
@@ -657,6 +723,31 @@
         draw();
       })
       .catch(() => (root.textContent = t("newsError")));
+    Promise.allSettled(feedSources.map(fetchFeed)).then((results) => {
+      const liveItems = results
+        .filter((result) => result.status === "fulfilled")
+        .flatMap((result) => result.value)
+        .filter(
+          (item) =>
+            item.originalUrl &&
+            !feedSources.some((source) => item.originalUrl === source.url),
+        )
+        .filter(
+          (item, index, all) =>
+            all.findIndex((candidate) => candidate.id === item.id) === index,
+        )
+        .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+      if (!liveItems.length) return;
+      items = liveItems;
+      shown = 9;
+      draw();
+      try {
+        localStorage.setItem(
+          "prywoz-news-feed-ua-pl-v5",
+          JSON.stringify({ createdAt: Date.now(), items: liveItems }),
+        );
+      } catch {}
+    });
     setActiveFilter("all");
     filterButtons.forEach((button) =>
       button.addEventListener("click", () => {
